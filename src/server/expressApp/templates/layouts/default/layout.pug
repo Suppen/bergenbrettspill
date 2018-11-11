@@ -1,0 +1,16 @@
+doctype html
+html
+	head
+		title Bergen Brettspillklubb
+		meta(charset="utf-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		link(rel="stylesheet" href="/style.css")
+		block styles
+		script(src="/bundle.js")
+		block scripts
+	body.default-layout
+		div.container
+			header.row
+				include header
+			main.row
+				block content

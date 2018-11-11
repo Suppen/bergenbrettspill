@@ -27,9 +27,17 @@ const setupExpressApp = (settings, dbs) => {
 	// Use the "public" directory for static files
 	app.use(express.static(path.join(__dirname, "..", "public")));
 
+	// Use pug as template engine
+	app.set("view engine", "pug");
+	app.set("views", path.join(__dirname, "templates"));
+
 	// Put the Apollo Server on it
 	const apolloServer = makeApolloServer(settings, dbs);
 	apolloServer.applyMiddleware({ app });
+
+	app.get("/", (req, res) => {
+		res.render("layouts/default/layout");
+	});
 
 	return app;
 };

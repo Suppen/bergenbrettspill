@@ -4,4 +4,4 @@
  * Import important stuff *
  **************************/
 
-require("./style/main.scss");
+require("bootstrap");

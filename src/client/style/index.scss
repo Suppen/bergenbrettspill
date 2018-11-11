@@ -1,0 +1,17 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+	background-color: pink;
+}
+
+.default-layout {
+	> .container {
+		padding-top: 2rem;
+		background-color: white;
+	}
+
+       	.banner img {
+		max-height: 200px;
+		width: auto;
+	}
+}

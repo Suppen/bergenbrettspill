@@ -5,50 +5,62 @@
  **************************/
 
 const path = require("path");
-const HtmlPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+
+/*********************
+ * Make some helpers *
+ *********************/
+
+const inProduction = process.env.NODE_ENVIRONMENT === "production" ? true : false;
+
+const src = path.join(__dirname, "src", "client");
+const dst = path.join(__dirname, "src", "server", "public");
 
 /*******************
  * Make the config *
  *******************/
 
 module.exports = {
-	entry: path.join(__dirname, "src", "client", "index.js"),
-	output: {
-		filename: "bundle.js",
-		path: path.join(__dirname, "src", "server", "public")
+	entry: {
+		main: [
+			path.join(src, "js", "index.js"), // JS
+			path.join(src, "style", "index.scss") // SCSS
+		]
 	},
+	output: {
+		path: path.join(__dirname, "src", "server", "public"),
+		filename: "bundle.js"
+	},
+	plugins: [
+		new MiniCssExtractPlugin({
+			filename: path.join("style.css")
+		}),
+		new CopyPlugin([{ from: path.join(src, "img"), to: path.join(dst, "img") }])
+	],
 	module: {
 		rules: [
 			// .scss
 			{
 				test: /\.scss$/,
-				use: [{ loader: "style-loader" }, { loader: "css-loader" }, { loader: "sass-loader" }]
+				use: [
+					{ loader: MiniCssExtractPlugin.loader },
+					{ loader: "css-loader", options: { sourceMap: !inProduction, minimize: inProduction } },
+					{ loader: "sass-loader", options: { sourceMap: !inProduction } }
+				]
 			},
-			// .js and .jsx
+			// .js
 			{
-				test: /\.jsx?$/,
+				test: /\.js$/,
 				use: [
 					{
 						loader: "babel-loader",
 						options: {
-							presets: [
-								["@babel/preset-env", { targets: { firefox: 60, chrome: 70, safari: 12, opera: 55 } }],
-								"@babel/preset-react"
-							]
+							presets: [["@babel/preset-env", { targets: { firefox: 60, chrome: 70, safari: 12, opera: 55 } }]]
 						}
 					}
 				]
-			},
-			// .html
-			{
-				test: /\.html$/,
-				use: [{ loader: "html-loader" }]
 			}
 		]
-	},
-	plugins: [
-		new HtmlPlugin({
-			template: path.join(__dirname, "src", "client", "index.html")
-		})
-	]
+	}
 };
