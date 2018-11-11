@@ -6,10 +6,7 @@
 
 const express = require("express");
 const path = require("path");
-const csvParse = require("csv-parse");
-const fs = require("fs");
-const { promisify } = require("util");
-const R = require("ramda");
+const makeApolloServer = require("./apollo");
 
 /***************************
  * Make the setup function *
@@ -30,18 +27,9 @@ const setupExpressApp = (settings, dbs) => {
 	// Use the "public" directory for static files
 	app.use(express.static(path.join(__dirname, "..", "public")));
 
-	app.get("/api/boardgamelist", (req, res) => {
-		dbs.bergenbrettspillklubb
-			// Get all games
-			.then(db => db.Boardgames.findAll())
-			// Send them to the client
-			.then(games => res.json(games))
-			// Handle errors
-			.catch(err => {
-				console.error(err);
-				res.sendStatus(500);
-			});
-	});
+	// Put the Apollo Server on it
+	const apolloServer = makeApolloServer(settings, dbs);
+	apolloServer.applyMiddleware({ app });
 
 	return app;
 };

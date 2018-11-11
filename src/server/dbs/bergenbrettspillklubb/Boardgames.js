@@ -52,25 +52,18 @@ module.exports = (sequelize, DataTypes) => {
 			timestamps: false
 		});
 
-		models.Boardgames.addScope(
-			"defaultScope",
-			{
-				include: [
-					{
-						model: models.Gamemechanics,
-						as: "mechanics",
-						attributes: ["id", "name"],
-						through: {
-							attributes: []
-						}
+		models.Boardgames.addScope("withMechanics", {
+			include: [
+				{
+					model: models.Gamemechanics,
+					as: "mechanics",
+					attributes: ["id", "name"],
+					through: {
+						attributes: []
 					}
-				],
-				order: [["title", "ASC"]]
-			},
-			{
-				override: true
-			}
-		);
+				}
+			]
+		});
 	};
 
 	return Boardgames;
