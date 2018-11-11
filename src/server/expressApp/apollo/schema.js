@@ -35,8 +35,8 @@ const typeDefs = gql`
 	}
 
 	type Gamemechanic {
-		id: Int
-		name: String
+		id: Int!
+		name: String!
 	}
 `;
 
