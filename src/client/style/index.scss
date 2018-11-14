@@ -1,7 +1,9 @@
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
-	background-color: pink;
+	background: url("/img/background.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 .default-layout {
