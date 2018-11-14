@@ -7,6 +7,14 @@
 const express = require("express");
 const path = require("path");
 const makeApolloServer = require("./apollo");
+const fs = require("fs");
+const R = require("ramda");
+
+/*********************
+ * Make some helpers *
+ *********************/
+
+const publicDir = path.join(__dirname, "..", "public");
 
 /***************************
  * Make the setup function *
@@ -25,7 +33,7 @@ const setupExpressApp = (settings, dbs) => {
 	const app = express();
 
 	// Use the "public" directory for static files
-	app.use(express.static(path.join(__dirname, "..", "public")));
+	app.use(express.static(publicDir));
 
 	// Use pug as template engine
 	app.set("view engine", "pug");
@@ -36,7 +44,18 @@ const setupExpressApp = (settings, dbs) => {
 	apolloServer.applyMiddleware({ app });
 
 	app.get("/", (req, res) => {
-		res.render("layouts/default/layout");
+		fs.promises
+			.readdir(path.join(publicDir, "img", "carousel"))
+			.then(
+				R.filter(
+					R.compose(
+						R.flip(R.contains)([".png", ".jpg", ".gif"]),
+						R.slice(-4, Infinity)
+					)
+				)
+			)
+			.then(R.map(R.concat("/img/carousel/")))
+			.then(filenames => res.render("frontpage", { carousel: filenames }));
 	});
 
 	return app;

@@ -14,4 +14,16 @@ body {
 		max-height: 200px;
 		width: auto;
 	}
+
+	footer {
+		background-color: $gray-400;
+		padding-bottom: 2rem;
+
+		img {
+			background-color: $white;
+			height: 75px;
+			width: auto;
+			margin-right: 1rem;
+		}
+	}
 }
