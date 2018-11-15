@@ -6,9 +6,9 @@
 
 const express = require("express");
 const path = require("path");
-const makeApolloServer = require("./apollo");
 const fs = require("fs");
 const R = require("ramda");
+const moment = require("moment");
 
 /*********************
  * Make some helpers *
@@ -25,10 +25,11 @@ const publicDir = path.join(__dirname, "..", "public");
  *
  * @param {Object} settings	Settings for the application
  * @param {Object} dbs	The database object to use
+ * @param {Object} apis	The API object to use
  *
  * @returns {Object}	The express app
  */
-const setupExpressApp = (settings, dbs) => {
+const setupExpressApp = (settings, dbs, apis) => {
 	// Initialize the app objec
 	const app = express();
 
@@ -39,24 +40,22 @@ const setupExpressApp = (settings, dbs) => {
 	app.set("view engine", "pug");
 	app.set("views", path.join(__dirname, "templates"));
 
-	// Put the Apollo Server on it
-	const apolloServer = makeApolloServer(settings, dbs);
-	apolloServer.applyMiddleware({ app });
-
-	app.get("/", (req, res) => {
-		fs.promises
-			.readdir(path.join(publicDir, "img", "carousel"))
-			.then(
-				R.filter(
-					R.compose(
-						R.flip(R.contains)([".png", ".jpg", ".gif"]),
-						R.slice(-4, Infinity)
+	app.get("/", (req, res) =>
+		Promise.all([
+			fs.promises
+				.readdir(path.join(publicDir, "img", "carousel"))
+				.then(
+					R.filter(
+						R.compose(
+							R.flip(R.contains)([".png", ".jpg", ".gif"]),
+							R.slice(-4, Infinity)
+						)
 					)
 				)
-			)
-			.then(R.map(R.concat("/img/carousel/")))
-			.then(filenames => res.render("frontpage", { carousel: filenames }));
-	});
+				.then(R.map(R.concat("/img/carousel/"))),
+			apis.meetup.events()
+		]).then(([carouselFilenames, events]) => res.render("frontpage", { moment, events, carousel: carouselFilenames }))
+	);
 
 	return app;
 };

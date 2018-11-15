@@ -5,6 +5,7 @@
  **************************/
 
 const setupDBs = require("./dbs");
+const setupAPIs = require("./apis");
 const path = require("path");
 const setupExpressApp = require("./expressApp");
 const http = require("http");
@@ -14,6 +15,9 @@ const http = require("http");
  ******************/
 
 const settings = {
+	server: {
+		port: 3001
+	},
 	dbs: {
 		bergenbrettspillklubb: {
 			database: null,
@@ -28,21 +32,27 @@ const settings = {
 	apis: {
 		meetup: {
 			apiKey: process.env.MEETUP_API_KEY,
-			endpoins: {
+			endpoints: {
 				events: "https://api.meetup.com/Bergen-Brettspillklubb/events"
 			}
 		}
 	}
 };
 
+// Set up the databases
 const dbs = setupDBs(settings);
 
-const app = setupExpressApp(settings, dbs);
+// Set up the APIs
+const apis = setupAPIs(settings);
 
+// Set up the express app
+const app = setupExpressApp(settings, dbs, apis);
+
+// Put the express app on a web server
 const webserver = http.createServer(app);
 
 /************
  * Start it *
  ************/
 
-webserver.listen(3001);
+webserver.listen(settings.server.port);
