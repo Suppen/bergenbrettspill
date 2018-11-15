@@ -24,6 +24,14 @@ const settings = {
 				storage: path.join(__dirname, "..", "..", "bergenbrettspillklubb.db")
 			}
 		}
+	},
+	apis: {
+		meetup: {
+			apiKey: process.env.MEETUP_API_KEY,
+			endpoins: {
+				events: "https://api.meetup.com/Bergen-Brettspillklubb/events"
+			}
+		}
 	}
 };
 

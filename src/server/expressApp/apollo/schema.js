@@ -6,6 +6,7 @@
 
 const { gql } = require("apollo-server-express");
 const R = require("ramda");
+const request = require("request-promise");
 
 /*********************************
  * Make the schema and resolvers *
@@ -19,6 +20,8 @@ const typeDefs = gql`
 		searchBoardgamesByTitle(searchStr: String!): [Boardgame]
 		# List of all game mechanics
 		gamemechanics: [Gamemechanic!]!
+		# List of the ten next events
+		events: [Event!]!
 	}
 
 	type Boardgame {
@@ -37,6 +40,14 @@ const typeDefs = gql`
 	type Gamemechanic {
 		id: Int!
 		name: String!
+	}
+
+	type Event {
+		name: String!
+		date: String!
+		description: String!
+		location: String!
+		url: String!
 	}
 `;
 
@@ -95,7 +106,14 @@ const resolvers = {
 		// A list of boardgames which titles match a search string
 		searchBoardgamesByTitle: (obj, { searchStr }, { dbs }) => searchGamesByTitle(dbs.bergenbrettspillklubb, searchStr),
 		// List of all game mechanics
-		gamemechanics: (obj, params, { dbs }) => dbs.bergenbrettspillklubb.then(db => db.Gamemechanics.findAll())
+		gamemechanics: (obj, params, { dbs }) => dbs.bergenbrettspillklubb.then(db => db.Gamemechanics.findAll()),
+		// Events
+		events: (obj, params, { settings }) => {
+			console.log("Ost");
+			return request(settings.apis.meetup.endpoints.events, { form: { key: settings.apis.meetup.apiKey } })
+				.then(res => console.log(res))
+				.catch(err => console.error(err))
+		}
 	}
 };
 

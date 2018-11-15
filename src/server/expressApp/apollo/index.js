@@ -16,7 +16,8 @@ const makeApolloServer = (settings, dbs) => {
 		typeDefs,
 		resolvers,
 		context: () => ({
-			dbs
+			dbs,
+			settings
 		})
 	});
 
