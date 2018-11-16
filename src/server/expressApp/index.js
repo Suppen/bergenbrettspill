@@ -54,9 +54,8 @@ const setupExpressApp = (settings, dbs, apis) => {
 				)
 				.then(R.map(R.concat("/img/carousel/"))),
 			apis.meetup.events(),
-			dbs.bergenbrettspillklubb.then(db => db.Boardgames.scope("withMechanics").findAll({ order: [["title", "ASC"]] })),
 			dbs.bergenbrettspillklubb.then(db => db.Boardgames.count())
-		]).then(([carouselFilenames, events, games, gamecount]) =>
+		]).then(([carouselFilenames, events, gamecount]) =>
 			res.render("frontpage", {
 				description: {
 					gamecount
@@ -64,10 +63,15 @@ const setupExpressApp = (settings, dbs, apis) => {
 				events: { events, moment },
 				carousel: {
 					imageUrls: carouselFilenames
-				},
-				gamelist: { games }
+				}
 			})
 		)
+	);
+
+	app.get("/games", (req, res) =>
+		dbs.bergenbrettspillklubb
+			.then(db => db.Boardgames.scope("withMechanics").findAll({ order: [["title", "ASC"]] }))
+			.then(games => res.render("gamelist", { gamelist: { games } }))
 	);
 
 	return app;

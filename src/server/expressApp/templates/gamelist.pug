@@ -1,25 +1,33 @@
-div.gamelist
-	table.table.table-striped.table-hover.table-responsive.w-100
-		thead
-			tr
-				th
-					//- Empty on purpose
-				th Tittel
-				th Spillere
-				th Spilletid
-				th Mekanikker
-		tbody
-			each game in gamelist.games
-				tr(data-min-players=game.minPlayers data-max-players=game.maxPlayers)
-					td
-						a(href=game.bggUrl)
-							img.img-fluid.img-thumbnail(src=game.thumbnailUrl alt=game.title)
-					td
-						a(href=game.bggUrl)
-							=game.title
-					td= game.minPlayers + "-" + game.maxPlayers
-					td= game.playingTime
-					td
-						ul.list-unstyled
-							each mechanic in game.mechanics
-								li= mechanic.name
+extends layouts/default/layout
+
+block content
+	div.gamelist.col-12
+		h2 Klubbens spill
+		table.table.table-striped.table-hover.table-responsive.w-100
+			thead
+				tr
+					th
+						//- Empty on purpose
+					th Tittel
+					th Spillere
+					th Spilletid
+					th Mekanikker
+			tbody
+				each game in gamelist.games
+					- const players = game.minPlayers === game.maxPlayers ? game.minPlayers : game.minPlayers + "-" + game.maxPlayers;
+					tr(data-min-players=game.minPlayers data-max-players=game.maxPlayers)
+						td
+							a(href=game.bggUrl)
+								img.img-fluid.img-thumbnail(src=game.thumbnailUrl alt=game.title)
+						td
+							a(href=game.bggUrl)
+								=game.title
+						td= players
+						td= game.playingTime
+						td
+							ul.list-unstyled
+								each mechanic in game.mechanics
+									li= mechanic.name
+		div.bgg-aknowledgement
+			img.d-inline(src="https://cf.geekdo-static.com/images/geekdo/bgg_cornerlogo.png" alt="BoardGameGeek")
+			p.d-inline Data hentet fra #[a(href="https://boardgamegeek.com") BoardGameGeek]
