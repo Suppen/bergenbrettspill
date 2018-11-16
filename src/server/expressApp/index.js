@@ -54,7 +54,7 @@ const setupExpressApp = (settings, dbs, apis) => {
 				)
 				.then(R.map(R.concat("/img/carousel/"))),
 			apis.meetup.events(),
-			dbs.bergenbrettspillklubb.then(db => db.Boardgames.count())
+			dbs.bergenbrettspillklubb.then(db => db.Boardgames.count({ where: { expands: null } }))
 		]).then(([carouselFilenames, events, gamecount]) =>
 			res.render("frontpage/index", {
 				description: {
