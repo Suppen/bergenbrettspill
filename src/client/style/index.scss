@@ -30,3 +30,15 @@ body {
 		}
 	}
 }
+
+/*************
+ * Game list *
+ *************/
+
+.gamelist {
+	table {
+		td:first-child,th:first-child {
+			min-width: 100px;
+		}
+	}
+}
