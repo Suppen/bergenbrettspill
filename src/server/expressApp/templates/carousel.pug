@@ -1,9 +1,9 @@
 div#carousel.col-12.carousel.slide(data-ride="carousel")
 	ol.carousel-indicators
-		each _, i in carousel
+		each _, i in carousel.imageUrls
 			li(class=(i === 0 ? "active" : null) data-slide-to=i data-target="#carousel")
 	div.carousel-inner
-		each image, i in carousel
+		each image, i in carousel.imageUrls
 			div.carousel-item(class=(i === 0 ? "active" : null))
 				img.w-100(src=image alt="")
 	a.carousel-control-prev(href="#carousel" role="button" data-slide="prev")

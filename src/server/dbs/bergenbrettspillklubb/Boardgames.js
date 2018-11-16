@@ -60,7 +60,8 @@ module.exports = (sequelize, DataTypes) => {
 					attributes: ["id", "name"],
 					through: {
 						attributes: []
-					}
+					},
+					order: [["name", "ASC"]]
 				}
 			]
 		});

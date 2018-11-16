@@ -1,7 +1,8 @@
+- const moment = events.moment
 div.events
 	h2 Events
 	ul.list-unstyled
-		for event in events
+		for event in events.events
 			li.list-item
 				a(href=event.link)
 					h3= event.name

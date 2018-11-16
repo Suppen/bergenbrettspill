@@ -53,8 +53,21 @@ const setupExpressApp = (settings, dbs, apis) => {
 					)
 				)
 				.then(R.map(R.concat("/img/carousel/"))),
-			apis.meetup.events()
-		]).then(([carouselFilenames, events]) => res.render("frontpage", { moment, events, carousel: carouselFilenames }))
+			apis.meetup.events(),
+			dbs.bergenbrettspillklubb.then(db => db.Boardgames.scope("withMechanics").findAll({ order: [["title", "ASC"]] })),
+			dbs.bergenbrettspillklubb.then(db => db.Boardgames.count())
+		]).then(([carouselFilenames, events, games, gamecount]) =>
+			res.render("frontpage", {
+				description: {
+					gamecount
+				},
+				events: { events, moment },
+				carousel: {
+					imageUrls: carouselFilenames
+				},
+				gamelist: { games }
+			})
+		)
 	);
 
 	return app;

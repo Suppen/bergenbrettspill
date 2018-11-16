@@ -1,0 +1,25 @@
+div.gamelist
+	table.table.table-striped.table-hover.w-100
+		thead
+			tr
+				th
+					//- Empty on purpose
+				th Tittel
+				th Spillere
+				th Spilletid
+				th Mekanikker
+		tbody
+			each game in gamelist.games
+				tr(data-min-players=game.minPlayers data-max-players=game.maxPlayers)
+					td
+						a(href=game.bggUrl)
+							img.img-fluid.img-thumbnail(src=game.thumbnailUrl alt=game.title)
+					td
+						a(href=game.bggUrl)
+							=game.title
+					td= game.minPlayers + "-" + game.maxPlayers
+					td= game.playingTime
+					td
+						ul.list-unstyled
+							each mechanic in game.mechanics
+								li= mechanic.name
