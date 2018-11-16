@@ -56,7 +56,7 @@ const setupExpressApp = (settings, dbs, apis) => {
 			apis.meetup.events(),
 			dbs.bergenbrettspillklubb.then(db => db.Boardgames.count())
 		]).then(([carouselFilenames, events, gamecount]) =>
-			res.render("frontpage", {
+			res.render("frontpage/index", {
 				description: {
 					gamecount
 				},
