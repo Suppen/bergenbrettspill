@@ -14,7 +14,7 @@ block content
 					th Mekanikker
 			tbody
 				each game in gamelist.games
-					- const players = game.minPlayers === game.maxPlayers ? game.minPlayers : game.minPlayers + "-" + game.maxPlayers;
+					- const players = game.minPlayers === game.maxPlayers ? game.minPlayers : game.minPlayers + " - " + game.maxPlayers;
 					tr(data-min-players=game.minPlayers data-max-players=game.maxPlayers)
 						td
 							a(href=game.bggUrl)
