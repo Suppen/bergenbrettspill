@@ -57,6 +57,9 @@ const setupExpressApp = (settings, dbs, apis) => {
 			dbs.bergenbrettspillklubb.then(db => db.Boardgames.count({ where: { expands: null } }))
 		]).then(([carouselFilenames, events, gamecount]) =>
 			res.render("frontpage/index", {
+				header: {
+					activeTab: null
+				},
 				description: {
 					gamecount
 				},
@@ -71,7 +74,7 @@ const setupExpressApp = (settings, dbs, apis) => {
 	app.get("/games", (req, res) =>
 		dbs.bergenbrettspillklubb
 			.then(db => db.Boardgames.scope("withMechanics").findAll({ order: [["title", "ASC"]] }))
-			.then(games => res.render("gamelist", { gamelist: { games } }))
+			.then(games => res.render("gamelist", { header: { activeTab: "games" }, gamelist: { games } }))
 	);
 
 	return app;

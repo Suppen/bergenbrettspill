@@ -1,3 +1,14 @@
 header.row
-	a.banner.col-12(href="/")
-		img(src="/img/logos/bbk.png" alt="logo")
+	a.col-12(href="/")
+		h1
+			img(src="/img/logos/bbk.png" alt="Bergen Brettspillklubb")
+			| Bergen Brettspillklubb
+	nav.navbar.navbar-expand-sm.navbar-light.bg-faded.col-12
+		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation")
+			span.navbar-toggler-icon
+
+		//- Links
+		div#nav-content.collapse.navbar-collapse
+			ul.navbar-nav
+				li.nav-item
+					a.nav-link(href="/games" class=header.activeTab === "games" ? "active" : null) Spill

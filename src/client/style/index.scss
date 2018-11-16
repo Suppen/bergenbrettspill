@@ -8,8 +8,9 @@ body {
 }
 
 .default-layout {
+	min-height: 100vh;
+
 	> .container {
-		padding-top: 2rem;
 		background-color: white;
 	}
 
