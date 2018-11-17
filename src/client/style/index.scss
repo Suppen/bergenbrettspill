@@ -5,18 +5,19 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-attachment: fixed;
+	background-color: $gray-300;
 }
 
 .default-layout {
-	min-height: 100vh;
-
 	> .container {
-		background-color: white;
+		min-height: 100vh;
+		background-color: $white;
 	}
 
-       	.banner img {
-		max-height: 200px;
-		width: auto;
+	header {
+		img.logo {
+			margin-right: 1rem;
+		}
 	}
 
 	footer {
@@ -35,7 +36,7 @@ body {
 .navbar-nav {
 	img {
 		height: 1em;
-		margin-right: 0.3em;
+		margin-right: 0.2rem;
 		filter: grayscale(100%);
 	}
 

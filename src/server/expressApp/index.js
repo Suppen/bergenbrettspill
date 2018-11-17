@@ -77,6 +77,8 @@ const setupExpressApp = (settings, dbs, apis) => {
 			.then(games => res.render("gamelist", { header: { activeTab: "games" }, gamelist: { games } }))
 	);
 
+	app.get("/where", (req, res) => res.render("where", { header: { activeTab: "where" } }));
+
 	return app;
 };
 

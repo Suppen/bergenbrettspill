@@ -1,7 +1,7 @@
 header.row
 	a.col-12(href="/")
 		h1
-			img(src="/img/logos/bbk.png" alt="Bergen Brettspillklubb")
+			img.logo(src="/img/logos/bbk.png" alt="Bergen Brettspillklubb")
 			| Bergen Brettspillklubb
 	nav.navbar.navbar-expand-sm.navbar-light.bg-faded.col-12
 		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation")
@@ -9,7 +9,9 @@ header.row
 		div#nav-content.collapse.navbar-collapse
 			ul.navbar-nav.mr-auto
 				li.nav-item
-					a.nav-link(href="/games" class=header.activeTab === "games" ? "active" : null) Spill
+					a.nav-link(href="/games" class=header.activeTab === "games" ? "active" : null) Liste over spill
+				li.nav-item
+					a.nav-link(href="/where" class=header.activeTab === "where" ? "active" : null) Hvor er vi?
 			ul.navbar-nav
 				li.nav-item
 					a.nav-link(href="https://www.meetup.com/Bergen-Brettspillklubb/" target="_blank")
