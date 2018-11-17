@@ -6,6 +6,7 @@
 
 const request = require("request-promise");
 const moment = require("moment");
+const R = require("ramda");
 
 /********************
  * Make some caches *
@@ -29,10 +30,13 @@ const eventCacheTime = moment.duration(1, "hour");
  ***************************/
 
 const setupMeetupAPI = settings => ({
-	events: () => {
+	events: queryParams => {
 		if (moment().isBefore(eventsCache.expires)) {
 			return eventsCache.data;
 		}
+
+		// Add the API key to the query params
+		const qp = R.merge(queryParams, { key: settings.apis.meetup.apiKey });
 
 		// Update the cache time
 		eventsCache.expires = moment
@@ -43,14 +47,7 @@ const setupMeetupAPI = settings => ({
 		// Update the cached data
 		eventsCache.data = request({
 			uri: settings.apis.meetup.endpoints.events,
-			qs: {
-				no_later_than: moment
-					.utc()
-					.add(2, "months")
-					.toISOString()
-					.slice(0, -1), // The API for some reason does not want the Z
-				key: settings.apis.meetup.apiKey
-			}
+			qs: qp
 		})
 			// Parse it as JSON
 			.then(JSON.parse)
