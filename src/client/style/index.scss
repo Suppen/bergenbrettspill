@@ -32,9 +32,17 @@ body {
 	}
 }
 
-/*************
- * Game list *
- *************/
+.navbar-nav {
+	img {
+		height: 1em;
+		margin-right: 0.3em;
+		filter: grayscale(100%);
+	}
+
+	.nav-item:hover img {
+		filter: none;
+	}
+}
 
 .gamelist {
 	table {
