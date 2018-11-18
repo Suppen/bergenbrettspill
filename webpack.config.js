@@ -36,7 +36,8 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: path.join("style.css")
 		}),
-		new CopyPlugin([{ from: path.join(src, "img"), to: path.join(dst, "img") }])
+		new CopyPlugin([{ from: path.join(src, "img"), to: path.join(dst, "img") }]),
+		new CopyPlugin([{ from: path.join(src, "vid"), to: path.join(dst, "vid") }])
 	],
 	module: {
 		rules: [
