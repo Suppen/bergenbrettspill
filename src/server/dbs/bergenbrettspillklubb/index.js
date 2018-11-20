@@ -35,10 +35,7 @@ const getDB = sequelize =>
 						R.indexOf(".")
 					)(filename) &&
 					// Ignore this file
-					R.compose(
-						R.not,
-						R.equals(path.basename(__filename))
-					)(filename) &&
+					R.complement(R.equals(path.basename(__filename)))(filename) &&
 					// Ignore non-js files
 					R.compose(
 						R.equals(".js"),

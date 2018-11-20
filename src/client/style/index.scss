@@ -34,7 +34,7 @@ body {
 }
 
 .navbar-nav {
-	img {
+	.nav-item img {
 		height: 1em;
 		margin-right: 0.2rem;
 		filter: grayscale(100%);
@@ -47,6 +47,7 @@ body {
 
 .gamelist {
 	table {
+		/* Make sure the game's thumbnails do not dissapear on small screens */
 		td:first-child,th:first-child {
 			min-width: 100px;
 		}
