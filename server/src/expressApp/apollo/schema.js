@@ -6,7 +6,6 @@
 
 const { gql } = require("apollo-server-express");
 const R = require("ramda");
-const request = require("request-promise");
 
 /*********************************
  * Make the schema and resolvers *
@@ -64,7 +63,7 @@ const resolvers = {
 		// List of all game mechanics
 		gamemechanics: (obj, params, { dbs }) => dbs.bergenbrettspillklubb.then(db => db.Gamemechanics.findAll()),
 		// Events
-		events: (obj, { limit }, { apis }) => apis.meetup.events({ page: Math.min(20, limit) })
+		events: (obj, { limit }, { apis }) => apis.meetup.events({ page: R.clamp(1, 20, limit) })
 	}
 };
 
