@@ -12,22 +12,18 @@ const R = require("ramda");
  ***************************/
 
 const setupMeetupAPI = settings => ({
-	events: queryParams => {
-		// Add the API key to the query params
-		const qp = R.merge(queryParams, { key: settings.apis.meetup.apiKey });
-
-		// Get the data from the API
-		return (
-			request({
-				uri: settings.apis.meetup.endpoints.events,
-				qs: qp
+	events: queryParams =>
+		request({
+			uri: settings.apis.meetup.endpoints.events,
+			qs: R.merge(queryParams, { key: settings.apis.meetup.apiKey })
+		})
+			// Parse it as JSON
+			.then(JSON.parse)
+			// Catch errors. The API key will be exposed in them...
+			.catch(err => {
+				// Pass on the error message without extra data
+				throw new Error(err.message);
 			})
-				// Parse it as JSON
-				.then(JSON.parse)
-				// Handle errors
-				.catch(err => console.error(err)) // TODO
-		);
-	}
 });
 
 /*************
