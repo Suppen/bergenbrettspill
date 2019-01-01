@@ -16,7 +16,7 @@ const http = require("http");
 
 const settings = {
 	server: {
-		port: process.env.PORT
+		port: Number.parseInt(process.env.PORT)
 	},
 	dbs: {
 		bergenbrettspillklubb: {
@@ -25,7 +25,7 @@ const settings = {
 			password: null,
 			config: {
 				dialect: "sqlite",
-				storage: path.join(__dirname, "..", "..", "bergenbrettspillklubb.db")
+				storage: path.join(__dirname, "..", "bergenbrettspillklubb.db")
 			}
 		}
 	},
