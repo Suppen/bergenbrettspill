@@ -45,7 +45,7 @@ function Home() {
 
 function Games() {
 	return (
-		<DefaultLayout>
+		<DefaultLayout activeTab="games">
 			<GameTable />
 		</DefaultLayout>
 	);
@@ -53,7 +53,7 @@ function Games() {
 
 function Where() {
 	return (
-		<DefaultLayout>
+		<DefaultLayout activeTab="where">
 			<Directions />
 		</DefaultLayout>
 	);

@@ -18,7 +18,7 @@ const inProduction = process.env.NODE_ENVIRONMENT === "production" ? true : fals
  *******************/
 
 module.exports = {
-	entry: path.join(__dirname, "src", "client", "index.js"),
+	entry: path.join(__dirname, "src", "index.js"),
 	output: {
 		path: path.join(__dirname, "build"),
 		filename: "bundle.js"
