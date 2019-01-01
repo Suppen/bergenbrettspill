@@ -16,7 +16,7 @@ const http = require("http");
 
 const settings = {
 	server: {
-		port: 3001
+		port: process.env.PORT
 	},
 	dbs: {
 		bergenbrettspillklubb: {
