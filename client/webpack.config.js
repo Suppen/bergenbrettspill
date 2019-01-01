@@ -6,6 +6,7 @@
  **************************/
 
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 /*********************
  * Make some helpers *
@@ -23,6 +24,7 @@ module.exports = {
 		path: path.join(__dirname, "build"),
 		filename: "bundle.js"
 	},
+	plugins: [new HtmlWebpackPlugin({ template: path.join(__dirname, "src", "html", "index.html") })],
 	module: {
 		rules: [
 			// .scss

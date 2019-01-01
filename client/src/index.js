@@ -13,6 +13,4 @@ import { Router } from "./ui/components/router";
  * Start the app by mounting the router *
  ****************************************/
 
-document.addEventListener("DOMContentLoaded", () => {
-	render(<Router />, document.getElementById("react-root"));
-});
+render(<Router />, document.getElementById("react-root"));
