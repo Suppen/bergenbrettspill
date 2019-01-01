@@ -1,7 +1,7 @@
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
-	background: url("/img/background.jpg");
+	background: url("../img/background.jpg");
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-attachment: fixed;
@@ -9,10 +9,8 @@ body {
 }
 
 .default-layout {
-	> .container {
-		min-height: 100vh;
-		background-color: $white;
-	}
+	min-height: 100vh;
+	background-color: $white;
 
 	header {
 		img.logo {
@@ -22,13 +20,11 @@ body {
 
 	footer {
 		background-color: $gray-400;
-		padding-bottom: 2rem;
 
 		img {
 			background-color: $white;
 			height: 75px;
 			width: auto;
-			margin-right: 1rem;
 		}
 	}
 }
@@ -47,7 +43,7 @@ body {
 
 .gamelist {
 	table {
-		/* Make sure the game's thumbnails do not dissapear on small screens */
+		/* Make sure the games' thumbnails do not dissapear on small screens */
 		td:first-child,th:first-child {
 			min-width: 100px;
 		}

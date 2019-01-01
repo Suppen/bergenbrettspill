@@ -1,13 +1,19 @@
 {
 	"env": {
 		"node": true,
-		"es6": true
+		"es6": true,
+		"browser": true
 	},
 	"extends": [
-		"eslint:recommended"
+		"eslint:recommended",
+		"plugin:react/recommended"
 	],
 	"parserOptions": {
-		"ecmaVersion": 2018
+		"ecmaVersion": 2018,
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"sourceType": "module"
 	},
 	"rules": {
 		"indent": [
@@ -44,6 +50,7 @@
 		]
 	},
 	"plugins": [
-		"prettier"
+		"prettier",
+		"react"
 	]
 }
