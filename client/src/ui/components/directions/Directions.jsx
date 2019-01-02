@@ -57,5 +57,4 @@ function Directions() {
  * Export it *
  *************/
 
-export default Directions;
 export { Directions };

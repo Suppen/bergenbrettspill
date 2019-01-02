@@ -31,9 +31,10 @@ function Events(props) {
 Events.propTypes = {
 	events: PropTypes.arrayOf(
 		PropTypes.shape({
-			id: PropTypes.string,
-			name: PropTypes.string,
-			time: PropTypes.string
+			id: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+			time: PropTypes.string.isRequired,
+			link: PropTypes.string.isRequired
 		})
 	).isRequired
 };
@@ -46,5 +47,4 @@ Events.defaultProps = {
  * Export it *
  *************/
 
-export default Events;
 export { Events };

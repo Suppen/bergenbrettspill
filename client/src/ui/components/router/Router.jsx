@@ -4,6 +4,8 @@
 
 import React from "react";
 import { BrowserRouter as ReactRouter, Route } from "react-router-dom";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
 
 /*************************
  * Import the components *
@@ -12,8 +14,14 @@ import { BrowserRouter as ReactRouter, Route } from "react-router-dom";
 import { DefaultLayout } from "../layouts/default";
 
 import { Frontpage } from "../frontpage";
-import { GameTable } from "../games";
+import { Games } from "../games";
 import { Directions } from "../directions";
+
+/**************************
+ * Make the apollo client *
+ **************************/
+
+const client = new ApolloClient();
 
 /************************
  * The Router component *
@@ -22,40 +30,36 @@ import { Directions } from "../directions";
 function Router() {
 	return (
 		<ReactRouter>
-			<React.Fragment>
-				<Route exact path="/" component={Home} />
-				<Route path="/games" component={Games} />
-				<Route path="/where" component={Where} />
-			</React.Fragment>
+			<ApolloProvider client={client}>
+				<Route
+					exact
+					path="/"
+					component={() => (
+						<DefaultLayout>
+							<Frontpage />
+						</DefaultLayout>
+					)}
+				/>
+				<Route
+					exact
+					path="/games"
+					component={() => (
+						<DefaultLayout activeTab="games">
+							<Games />
+						</DefaultLayout>
+					)}
+				/>
+				<Route
+					exact
+					path="/where"
+					component={() => (
+						<DefaultLayout activeTab="where">
+							<Directions />
+						</DefaultLayout>
+					)}
+				/>
+			</ApolloProvider>
 		</ReactRouter>
-	);
-}
-
-/********************************
- * Make some wrapper components *
- ********************************/
-
-function Home() {
-	return (
-		<DefaultLayout>
-			<Frontpage />
-		</DefaultLayout>
-	);
-}
-
-function Games() {
-	return (
-		<DefaultLayout activeTab="games">
-			<GameTable />
-		</DefaultLayout>
-	);
-}
-
-function Where() {
-	return (
-		<DefaultLayout activeTab="where">
-			<Directions />
-		</DefaultLayout>
 	);
 }
 

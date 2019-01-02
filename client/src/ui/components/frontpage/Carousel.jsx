@@ -101,5 +101,4 @@ class Carousel extends React.Component {
  * Export it *
  *************/
 
-export default Carousel;
 export { Carousel };

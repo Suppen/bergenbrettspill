@@ -44,5 +44,4 @@ Description.defaultProps = {
  * Export it *
  *************/
 
-export default Description;
 export { Description };

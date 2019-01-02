@@ -1,3 +1,3 @@
-import { GameTable } from "./GameTable.jsx";
+import { Games } from "./Games.jsx";
 
-export { GameTable };
+export { Games };
