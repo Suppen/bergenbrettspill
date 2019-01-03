@@ -17,26 +17,9 @@ function Games() {
 			<h2 className="row">
 				<span className="col-12">Klubbens spill</span>
 			</h2>
-			<div className="row">
+			<div className="row mt-5">
 				<div className="col-12">
-					<Query
-						query={gql`
-							{
-								boardgames {
-									bggId
-									bggUrl
-									thumbnailUrl
-									title
-									minPlayers
-									maxPlayers
-									playingTime
-									mechanics {
-										name
-									}
-								}
-							}
-						`}
-					>
+					<Query query={Games._boardgamesQuery}>
 						{({ loading, error, data }) => {
 							if (!loading && !error) {
 								return <GameTable games={data.boardgames} />;
@@ -62,6 +45,30 @@ function Games() {
 		</div>
 	);
 }
+
+/**
+ * The GraphQL query to use to fetch the list of board games
+ *
+ * @type {Object}
+ *
+ * @private
+ */
+Games._boardgamesQuery = gql`
+	{
+		boardgames {
+			bggId
+			bggUrl
+			thumbnailUrl
+			title
+			minPlayers
+			maxPlayers
+			playingTime
+			mechanics {
+				name
+			}
+		}
+	}
+`;
 
 /*************
  * Export it *
