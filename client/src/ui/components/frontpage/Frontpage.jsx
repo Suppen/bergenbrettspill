@@ -25,24 +25,15 @@ function Frontpage() {
 					</div>
 					<div className="row">
 						<div className="col-12">
-							<Description />
+							<Query query={Frontpage._gameCountQuery}>
+								{({ loading, data }) => <Description gamecount={loading ? 0 : data.boardgames.length} />}
+							</Query>
 						</div>
 					</div>
 				</div>
 				<div className="col-md-4 col-sm-12">
 					<div className="col-12">
-						<Query
-							query={gql`
-								{
-									events(limit: 6) {
-										id
-										name
-										time
-										link
-									}
-								}
-							`}
-						>
+						<Query query={Frontpage._eventQuery}>
 							{({ loading, error, data }) => {
 								if (!loading && !error) {
 									return <Events events={data.events} />;
@@ -56,6 +47,41 @@ function Frontpage() {
 		</React.Fragment>
 	);
 }
+
+/**
+ * GraphQL query for the game count
+ *
+ * @type {Object}
+ *
+ * @private
+ */
+Frontpage._gameCountQuery = gql`
+	{
+		boardgames {
+			bggId
+		}
+	}
+`;
+
+/**
+ * GraphQL query for the events
+ *
+ * @type {Object}
+ *
+ * @private
+ */
+Frontpage._eventQuery = gql`
+	{
+		events(limit: 6) {
+			id
+			name
+			time
+			link
+		}
+	}
+`;
+
+window.Frontpage = Frontpage;
 
 /*************
  * Export it *
