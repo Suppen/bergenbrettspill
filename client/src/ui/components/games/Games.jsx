@@ -24,6 +24,7 @@ function Games() {
 							{
 								boardgames {
 									bggId
+									bggUrl
 									thumbnailUrl
 									title
 									minPlayers

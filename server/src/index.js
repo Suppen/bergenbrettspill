@@ -14,6 +14,7 @@ const http = require("http");
  * Set up the app *
  ******************/
 
+console.log(path.join(__dirname, "..", "bergenbrettspillklubb.db"));
 const settings = {
 	server: {
 		port: Number.parseInt(process.env.PORT)

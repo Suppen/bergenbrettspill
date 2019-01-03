@@ -129,10 +129,13 @@ class GameTable extends React.Component {
 		// Shorthand for the sorting
 		const { prop, direction } = this.state.sortBy;
 
-		// Make the filter functions
+		// Make the filter and sort functions
+		const maybeReverse = R.ifElse(() => R.equals(direction, "ASC"), R.identity, R.reverse);
+		const sort = R.sortBy(R.prop(prop));
 		const filterTitle = R.filter(
 			R.compose(
-				R.contains(title),
+				R.contains(R.toLower(title)),
+				R.toLower,
 				R.prop("title")
 			)
 		);
@@ -153,18 +156,23 @@ class GameTable extends React.Component {
 		);
 		const filterMechanics = R.filter(
 			R.compose(
-				R.any(R.contains(R.toLower(mechanics))),
-				R.map(R.toLower),
-				R.map(R.prop("name")),
+				R.ifElse(
+					R.isEmpty,
+					R.T,
+					R.compose(
+						R.any(R.contains(R.toLower(mechanics))),
+						R.map(R.toLower),
+						R.map(R.prop("name"))
+					)
+				),
 				R.prop("mechanics")
 			)
 		);
 
 		// Process the game list
 		return R.compose(
-			// Sort
-			R.ifElse(() => R.equals(direction, "ASC"), R.identity, R.reverse),
-			R.sortBy(R.prop(prop)),
+			maybeReverse,
+			sort,
 			filterTitle,
 			filterPlayers,
 			filterPlayingTime,
@@ -194,6 +202,8 @@ class GameTable extends React.Component {
 	}
 
 	render() {
+		const games = this._games;
+
 		return (
 			<table className="table table-striped table-hover table-responsive">
 				<thead>
@@ -214,7 +224,7 @@ class GameTable extends React.Component {
 						<th>Mekanikker</th>
 					</tr>
 					<tr>
-						<th>{/* Empty on purpose */}</th>
+						<th>{`${games.length} søketreff`}</th>
 						<th>
 							<input
 								ref={input => (this._filterInputs.title = input)}
@@ -254,7 +264,7 @@ class GameTable extends React.Component {
 					</tr>
 				</thead>
 				<tbody>
-					{this._games.map(game => (
+					{games.map(game => (
 						<tr key={game.bggId}>
 							<td>
 								<a href={game.bggUrl} target="_blank" rel="noopener noreferrer">
