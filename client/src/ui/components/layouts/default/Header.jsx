@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import bbkLogo from "../../../../img/logos/bbk.png";
+import discordLogo from "../../../../img/logos/discord.png";
 import meetupLogo from "../../../../img/logos/meetup.png";
 import fbLogo from "../../../../img/logos/facebook.png";
 
@@ -50,6 +51,12 @@ function Header(props) {
 					</ul>
 					<ul className="navbar-nav">
 						<li className="nav-item">
+							<a className="nav-link" href="https://discord.gg/BF5C9wz" target="_blank" rel="noopener noreferrer">
+								<img src={discordLogo} alt="" />
+								<span className="d-sm-none d-lg-inline">Discord</span>
+							</a>
+						</li>
+						<li className="nav-item">
 							<a
 								className="nav-link"
 								href="https://www.meetup.com/Bergen-Brettspillklubb/"
@@ -57,7 +64,7 @@ function Header(props) {
 								rel="noopener noreferrer"
 							>
 								<img src={meetupLogo} alt="" />
-								Meetup
+								<span className="d-sm-none d-lg-inline">Meetup</span>
 							</a>
 						</li>
 						<li className="nav-item">
@@ -68,7 +75,7 @@ function Header(props) {
 								rel="noopener noreferrer"
 							>
 								<img src={fbLogo} alt="" />
-								Facebook
+								<span className="d-sm-none d-lg-inline">Facebook</span>
 							</a>
 						</li>
 					</ul>

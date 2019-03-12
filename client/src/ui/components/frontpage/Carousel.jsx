@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import img1 from "../../../img/carousel/20181114_183057.jpg";
 import img2 from "../../../img/carousel/20181114_183104.jpg";
 import img3 from "../../../img/carousel/20181114_214150.jpg";
+import img4 from "../../../img/carousel/20190130_201708.jpg";
+import img5 from "../../../img/carousel/20190130_215929.jpg";
 
 /***********
  * Helpers *
@@ -52,7 +54,7 @@ class Carousel extends React.Component {
 
 	static get defaultProps() {
 		return {
-			imageSrcs: [img1, img2, img3]
+			imageSrcs: [img4, img3, img2, img5, img1]
 		};
 	}
 
