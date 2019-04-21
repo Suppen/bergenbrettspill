@@ -25,7 +25,15 @@ const setupMeetupAPI = settings => ({
 			.catch(err => {
 				// Pass on the error message without extra data
 				throw new Error(err.message);
-			})
+			}),
+	photos: () =>
+		request({
+			uri: settings.apis.meetup.endpoints.photos
+		})
+			// Parse it as JSON
+			.then(JSON.parse)
+			// Extract the photo URLs
+			.then(R.map(R.prop("photo_link")))
 });
 
 /*************

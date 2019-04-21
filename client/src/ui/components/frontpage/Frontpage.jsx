@@ -20,7 +20,9 @@ function Frontpage() {
 				<div className="col-md-8 col-sm-12">
 					<div className="row">
 						<div className="col-12">
-							<Carousel />
+							<Query query={Frontpage._carouselQuery}>
+								{({ loading, data }) => <Carousel imageSrcs={loading ? [] : data.photos} />}
+							</Query>
 						</div>
 					</div>
 					<div className="row">
@@ -78,6 +80,19 @@ Frontpage._eventQuery = gql`
 			time
 			link
 		}
+	}
+`;
+
+/**
+ * GraphQL query for the list of photos for the carousel
+ *
+ * @type {Object}
+ *
+ * @private
+ */
+Frontpage._carouselQuery = gql`
+	{
+		photos
 	}
 `;
 

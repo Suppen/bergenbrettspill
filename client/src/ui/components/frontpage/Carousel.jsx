@@ -4,12 +4,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-
-import img1 from "../../../img/carousel/20181114_183057.jpg";
-import img2 from "../../../img/carousel/20181114_183104.jpg";
-import img3 from "../../../img/carousel/20181114_214150.jpg";
-import img4 from "../../../img/carousel/20190130_201708.jpg";
-import img5 from "../../../img/carousel/20190130_215929.jpg";
+import * as R from "ramda";
 
 /***********
  * Helpers *
@@ -52,12 +47,6 @@ class Carousel extends React.Component {
 		};
 	}
 
-	static get defaultProps() {
-		return {
-			imageSrcs: [img4, img3, img2, img5, img1]
-		};
-	}
-
 	constructor(props) {
 		super(props);
 
@@ -71,18 +60,32 @@ class Carousel extends React.Component {
 		this._id = generateId(10);
 	}
 
+	static getSamples(elements) {
+		// Make a clone to not operate on the originals
+		const clone = R.clone(elements);
+
+		// Take the samples
+		return R.range(0, 5).map(() => {
+			const i = Math.floor(Math.random() * clone.length);
+			return R.head(clone.splice(i, 1));
+		});
+	}
+
 	render() {
 		const carouselHref = `#${this._id}`;
+
+		// Take a sample of the pictures to show in the carousel
+		const samples = Carousel.getSamples(this.props.imageSrcs);
 
 		return (
 			<div id={this._id} className="carousel slide" data-ride="carousel">
 				<ol className="carousel-indicators">
-					{this.props.imageSrcs.map((src, i) => (
+					{samples.map((src, i) => (
 						<li key={i} className={i === 0 ? "active" : null} data-slide-to={i} data-target={carouselHref} />
 					))}
 				</ol>
 				<div className="carousel-inner">
-					{this.props.imageSrcs.map((src, i) => (
+					{samples.map((src, i) => (
 						<div key={i} className={`carousel-item ${i === 0 ? "active" : ""}`}>
 							<img className="w-100" src={src} alt="" />
 						</div>

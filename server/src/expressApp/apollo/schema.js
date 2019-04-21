@@ -19,6 +19,8 @@ const typeDefs = gql`
 		gamemechanics: [Gamemechanic!]!
 		# List of the ten next events
 		events(limit: Int!): [Event!]!
+		# List of photos
+		photos: [String!]!
 	}
 
 	type Boardgame {
@@ -63,7 +65,9 @@ const resolvers = {
 		// List of all game mechanics
 		gamemechanics: (obj, params, { dbs }) => dbs.bergenbrettspillklubb.then(db => db.Gamemechanics.findAll()),
 		// Events
-		events: (obj, { limit }, { apis }) => apis.meetup.events({ page: R.clamp(1, 20, limit) })
+		events: (obj, { limit }, { apis }) => apis.meetup.events({ page: R.clamp(1, 20, limit) }),
+		// Photos
+		photos: (obj, params, { apis }) => apis.meetup.photos()
 	}
 };
 
