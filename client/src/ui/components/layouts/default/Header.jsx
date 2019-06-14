@@ -48,6 +48,16 @@ function Header(props) {
 								Hvor er vi?
 							</Link>
 						</li>
+						<li className="nav-item">
+							<a
+								className="nav-link"
+								href="https://docs.google.com/forms/d/e/1FAIpQLScQBQ2KuSJqDn_Gp04C9aLkI2cbLOTWn3tMZSiFyCk9SGrqgw/viewform"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Innmeldingsskjema
+							</a>
+						</li>
 					</ul>
 					<ul className="navbar-nav">
 						<li className="nav-item">
