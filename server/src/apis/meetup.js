@@ -15,7 +15,7 @@ const setupMeetupAPI = settings => ({
 	events: queryParams =>
 		request({
 			uri: settings.apis.meetup.endpoints.events,
-			qs: R.mergeAll([queryParams, { key: settings.apis.meetup.apiKey }])
+			qs: queryParams
 		})
 			// Parse it as JSON
 			.then(JSON.parse)
