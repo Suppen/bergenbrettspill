@@ -33,11 +33,6 @@ body {
 	.nav-item img {
 		height: 1em;
 		margin-right: 0.2rem;
-		filter: grayscale(100%);
-	}
-
-	.nav-item:hover img {
-		filter: none;
 	}
 }
 

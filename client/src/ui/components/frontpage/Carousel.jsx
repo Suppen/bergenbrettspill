@@ -5,6 +5,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as R from "ramda";
+import firstImage from "../../../img/carousel/first.jpg";
 
 /***********
  * Helpers *
@@ -65,10 +66,13 @@ class Carousel extends React.Component {
 		const clone = R.clone(elements);
 
 		// Take the samples
-		return R.range(0, 5).map(() => {
+		const samples = R.range(0, 5).map(() => {
 			const i = Math.floor(Math.random() * clone.length);
 			return R.head(clone.splice(i, 1));
 		});
+
+		// Add the first image
+		return [firstImage, ...samples];
 	}
 
 	render() {

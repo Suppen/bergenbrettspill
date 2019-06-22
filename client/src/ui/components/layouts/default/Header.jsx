@@ -16,6 +16,9 @@ import fbLogo from "../../../../img/logos/facebook.png";
  ************************/
 
 function Header(props) {
+	const gameVotingOpen =
+		new Date() > new Date("2019-06-26T18:00:00+0200") && new Date() < new Date("2019-06-29T00:00:00+0200");
+
 	return (
 		<header className="row">
 			<Link className="col-12" to="/">
@@ -38,55 +41,90 @@ function Header(props) {
 				</button>
 				<div id="nav-content" className="collapse navbar-collapse">
 					<ul className="navbar-nav mr-auto">
-						<li className="nav-item">
-							<Link className={`nav-link ${props.activeTab === "games" ? "active" : ""}`} to="/games">
-								Liste over spill
-							</Link>
-						</li>
+						{/* Hvor er vi? */}
 						<li className="nav-item">
 							<Link className={`nav-link ${props.activeTab === "where" ? "active" : ""}`} to="/where">
 								Hvor er vi?
 							</Link>
 						</li>
+						{/* Våre spill */}
 						<li className="nav-item">
-							<a
-								className="nav-link"
-								href="https://docs.google.com/forms/d/e/1FAIpQLSe1472dT4_s4ImZnylvQFLT_nGlm7ZMBVnLQbohU5hQHpYpkg/viewform"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Innmeldingsskjema
-							</a>
+							<Link className={`nav-link ${props.activeTab === "games" ? "active" : ""}`} to="/games">
+								Våre spill
+							</Link>
 						</li>
-					</ul>
-					<ul className="navbar-nav">
-						<li className="nav-item">
-							<a className="nav-link" href="https://discord.gg/BF5C9wz" target="_blank" rel="noopener noreferrer">
-								<img src={discordLogo} alt="" />
-								<span className="d-sm-none d-lg-inline">Discord</span>
-							</a>
-						</li>
-						<li className="nav-item">
+						{/* Skjemaer */}
+						<li className="nav-item dropdown">
 							<a
-								className="nav-link"
-								href="https://www.meetup.com/Bergen-Brettspillklubb/"
-								target="_blank"
-								rel="noopener noreferrer"
+								className="nav-link dropdown-toggle"
+								data-toggle="dropdown"
+								href="#"
+								role="button"
+								aria-haspopup="true"
+								aria-expanded="false"
 							>
-								<img src={meetupLogo} alt="" />
-								<span className="d-sm-none d-lg-inline">Meetup</span>
+								Skjemaer
 							</a>
+							{/* Skjemaer */}
+							<div className="dropdown-menu">
+								{/* Innmeldingsskjema */}
+								<a
+									className="nav-link"
+									href="https://docs.google.com/forms/d/e/1FAIpQLSe1472dT4_s4ImZnylvQFLT_nGlm7ZMBVnLQbohU5hQHpYpkg/viewform"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Innmeldingsskjema
+								</a>
+								{/* Spillinnkjøpavstemning */}
+								{gameVotingOpen ? (
+									<a
+										className="nav-link"
+										href="https://docs.google.com/forms/d/e/1FAIpQLSeKu5rjVzH7AM_4KU6wWpYQVeERfKN70sHfWCwAlRZGHeIn8Q/viewform"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Spillinnkjøp Sommer 2019
+									</a>
+								) : null}
+							</div>
 						</li>
-						<li className="nav-item">
+						{/* Finn oss på... */}
+						<li className="nav-item dropdown">
 							<a
-								className="nav-link"
-								href="https://www.facebook.com/bergenbrettspill/"
-								target="_blank"
-								rel="noopener noreferrer"
+								className="nav-link dropdown-toggle"
+								data-toggle="dropdown"
+								href="#"
+								role="button"
+								aria-haspopup="true"
+								aria-expanded="false"
 							>
-								<img src={fbLogo} alt="" />
-								<span className="d-sm-none d-lg-inline">Facebook</span>
+								Finn oss på...
 							</a>
+							<div className="dropdown-menu">
+								<a className="nav-link" href="https://discord.gg/BF5C9wz" target="_blank" rel="noopener noreferrer">
+									<img src={discordLogo} alt="" />
+									<span className="d-sm-none d-lg-inline">Discord</span>
+								</a>
+								<a
+									className="nav-link"
+									href="https://www.meetup.com/Bergen-Brettspillklubb/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<img src={meetupLogo} alt="" />
+									<span className="d-sm-none d-lg-inline">Meetup</span>
+								</a>
+								<a
+									className="nav-link"
+									href="https://www.facebook.com/bergenbrettspill/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<img src={fbLogo} alt="" />
+									<span className="d-sm-none d-lg-inline">Facebook</span>
+								</a>
+							</div>
 						</li>
 					</ul>
 				</div>
