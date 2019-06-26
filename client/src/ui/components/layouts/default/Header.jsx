@@ -87,6 +87,15 @@ function Header(props) {
 										Spillinnkjøp Sommer 2019
 									</a>
 								) : null}
+								{/* Utlån av spill */}
+								<a
+									className="nav-link"
+									href="https://docs.google.com/forms/d/e/1FAIpQLSfQ9N31mhy4phvYfOvnHWeu1haBAyXujTSyYGhIswPCAPikmA/viewform"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Utlån av spill
+								</a>
 							</div>
 						</li>
 						{/* Finn oss på... */}
