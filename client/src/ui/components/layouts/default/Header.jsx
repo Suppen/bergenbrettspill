@@ -10,15 +10,13 @@ import bbkLogo from "../../../../img/logos/bbk.png";
 import discordLogo from "../../../../img/logos/discord.png";
 import meetupLogo from "../../../../img/logos/meetup.png";
 import fbLogo from "../../../../img/logos/facebook.png";
+import twitterLogo from "../../../../img/logos/twitter.png";
 
 /************************
  * The Header component *
  ************************/
 
 function Header(props) {
-	const gameVotingOpen =
-		new Date() > new Date("2019-06-26T18:00:00+0200") && new Date() < new Date("2019-06-29T00:00:00+0200");
-
 	return (
 		<header className="row">
 			<Link className="col-12" to="/">
@@ -69,27 +67,16 @@ function Header(props) {
 							<div className="dropdown-menu">
 								{/* Innmeldingsskjema */}
 								<a
-									className="nav-link"
+									className="dropdown-item"
 									href="https://docs.google.com/forms/d/e/1FAIpQLSe1472dT4_s4ImZnylvQFLT_nGlm7ZMBVnLQbohU5hQHpYpkg/viewform"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									Innmeldingsskjema
 								</a>
-								{/* Spillinnkjøpavstemning */}
-								{gameVotingOpen ? (
-									<a
-										className="nav-link"
-										href="https://docs.google.com/forms/d/e/1FAIpQLSeKu5rjVzH7AM_4KU6wWpYQVeERfKN70sHfWCwAlRZGHeIn8Q/viewform"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Spillinnkjøp Sommer 2019
-									</a>
-								) : null}
 								{/* Utlån av spill */}
 								<a
-									className="nav-link"
+									className="dropdown-item"
 									href="https://docs.google.com/forms/d/e/1FAIpQLSfQ9N31mhy4phvYfOvnHWeu1haBAyXujTSyYGhIswPCAPikmA/viewform"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -111,27 +98,41 @@ function Header(props) {
 								Finn oss på...
 							</a>
 							<div className="dropdown-menu">
-								<a className="nav-link" href="https://discord.gg/BF5C9wz" target="_blank" rel="noopener noreferrer">
+								<a
+									className="dropdown-item"
+									href="https://discord.gg/BF5C9wz"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									<img src={discordLogo} alt="" />
-									<span className="d-sm-none d-lg-inline">Discord</span>
+									<span>Discord</span>
 								</a>
 								<a
-									className="nav-link"
+									className="dropdown-item"
 									href="https://www.meetup.com/Bergen-Brettspillklubb/"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									<img src={meetupLogo} alt="" />
-									<span className="d-sm-none d-lg-inline">Meetup</span>
+									<span>Meetup</span>
 								</a>
 								<a
-									className="nav-link"
+									className="dropdown-item"
 									href="https://www.facebook.com/bergenbrettspill/"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									<img src={fbLogo} alt="" />
-									<span className="d-sm-none d-lg-inline">Facebook</span>
+									<span>Facebook</span>
+								</a>
+								<a
+									className="dropdown-item"
+									href="https://twitter.com/bergenspill"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<img src={twitterLogo} alt="" />
+									<span>Twitter</span>
 								</a>
 							</div>
 						</li>
