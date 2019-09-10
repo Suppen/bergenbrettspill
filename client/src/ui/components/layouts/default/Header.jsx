@@ -51,6 +51,29 @@ function Header(props) {
 								Våre spill
 							</Link>
 						</li>
+						{/* Logokonkurranse */}
+						<li className="nav-item dropdown">
+							<a
+								className="nav-link dropdown-toggle"
+								data-toggle="dropdown"
+								href="#"
+								role="button"
+								aria-haspopup="true"
+								aria-expanded="false"
+							>
+								Logokonkurranse
+							</a>
+							<div className="dropdown-menu">
+								{/* Regler */}
+								<Link className="dropdown-item" to="/logocontest">
+									Logokonkurranse
+								</Link>
+								{/* Innlegg */}
+								<Link className="dropdown-item" to="/logocontestentries">
+									Innslag
+								</Link>
+							</div>
+						</li>
 						{/* Skjemaer */}
 						<li className="nav-item dropdown">
 							<a
@@ -63,7 +86,6 @@ function Header(props) {
 							>
 								Skjemaer
 							</a>
-							{/* Skjemaer */}
 							<div className="dropdown-menu">
 								{/* Innmeldingsskjema */}
 								<a

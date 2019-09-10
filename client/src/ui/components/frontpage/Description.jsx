@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 function Description(props) {
 	const isClosed =
-		new Date() > new Date("2019-06-26T22:30:00+0200") && new Date() < new Date("2019-07-08T00:00:00+0200");
+		new Date() > new Date("2019-06-26T22:30:00+0200") && new Date() < new Date("2019-08-07T00:00:00+0200");
 
 	return (
 		<div className="mt-4">

@@ -16,6 +16,8 @@ import { DefaultLayout } from "../layouts/default";
 import { Frontpage } from "../frontpage";
 import { Games } from "../games";
 import { Directions } from "../directions";
+import { LogoContest } from "../logocontest";
+import { Entries } from "../logocontest/entries";
 
 /**************************
  * Make the apollo client *
@@ -55,6 +57,24 @@ function Router() {
 					component={() => (
 						<DefaultLayout activeTab="where">
 							<Directions />
+						</DefaultLayout>
+					)}
+				/>
+				<Route
+					exact
+					path="/logocontestentries"
+					component={() => (
+						<DefaultLayout activeTab="logocontest">
+							<Entries />
+						</DefaultLayout>
+					)}
+				/>
+				<Route
+					exact
+					path="/logocontest"
+					component={() => (
+						<DefaultLayout activeTab="logocontest">
+							<LogoContest />
 						</DefaultLayout>
 					)}
 				/>

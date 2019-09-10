@@ -96,8 +96,6 @@ Frontpage._carouselQuery = gql`
 	}
 `;
 
-window.Frontpage = Frontpage;
-
 /*************
  * Export it *
  *************/
