@@ -5,12 +5,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faDiscord, faFacebook, faTwitter, faMeetup } from "@fortawesome/free-brands-svg-icons";
 
 import bbkLogo from "../../../../img/logos/bbk.png";
 import discordLogo from "../../../../img/logos/discord.png";
 import meetupLogo from "../../../../img/logos/meetup.png";
 import fbLogo from "../../../../img/logos/facebook.png";
 import twitterLogo from "../../../../img/logos/twitter.png";
+import emailLogo from "../../../../img/logos/email.png";
 
 /************************
  * The Header component *
@@ -126,8 +130,7 @@ function Header(props) {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<img src={discordLogo} alt="" />
-									<span>Discord</span>
+									<FontAwesomeIcon icon={faDiscord} style={{ color: "#7289da" }} /> <span>Discord</span>
 								</a>
 								<a
 									className="dropdown-item"
@@ -135,8 +138,7 @@ function Header(props) {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<img src={meetupLogo} alt="" />
-									<span>Meetup</span>
+									<FontAwesomeIcon icon={faMeetup} style={{ color: "#f64060" }} /> <span>Meetup</span>
 								</a>
 								<a
 									className="dropdown-item"
@@ -144,8 +146,7 @@ function Header(props) {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<img src={fbLogo} alt="" />
-									<span>Facebook</span>
+									<FontAwesomeIcon icon={faFacebook} style={{ color: "#3b5998" }} /> <span>Facebook</span>
 								</a>
 								<a
 									className="dropdown-item"
@@ -153,8 +154,10 @@ function Header(props) {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<img src={twitterLogo} alt="" />
-									<span>Twitter</span>
+									<FontAwesomeIcon icon={faTwitter} style={{ color: "#1da1f2" }} /> <span>Twitter</span>
+								</a>
+								<a className="dropdown-item" href="mailto:bergenbrettspill@gmail.com">
+									<FontAwesomeIcon icon={faEnvelope} /> <span>E-post</span>
 								</a>
 							</div>
 						</li>
