@@ -11,17 +11,8 @@ import { Link } from "react-router-dom";
  *****************************/
 
 function Description(props) {
-	const isClosed =
-		new Date() > new Date("2019-06-26T22:30:00+0200") && new Date() < new Date("2019-08-07T00:00:00+0200");
-
 	return (
 		<div className="mt-4">
-			{isClosed ? (
-				<div className="alert alert-info">
-					<strong>Bergen Brettspillklubb har for øyeblikket sommerstengt</strong>. Neste onsdagsspilling er 14. august.
-					Vi sees da!
-				</div>
-			) : null}
 			<p>
 				Liker du brettspill? Vi samles hver onsdag på <Link to="/where">Nordnes Bydelshus</Link> og spiller alt mulig
 				rart av brettspill. Vi har <Link to="/games">{props.gamecount} spill</Link> selv, og medlemmer tar ofte med egne
