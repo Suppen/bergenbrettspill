@@ -44,6 +44,12 @@ function Header(props) {
 								Hvor er vi?
 							</Link>
 						</li>
+						{/* Medlemskap */}
+						<li className="nav-item">
+							<Link className={`nav-link ${props.activeTab === "membership" ? "active" : ""}`} to="/membership">
+								Bli medlem!
+							</Link>
+						</li>
 						{/* Våre spill */}
 						<li className="nav-item">
 							<Link className={`nav-link ${props.activeTab === "games" ? "active" : ""}`} to="/games">
@@ -71,39 +77,6 @@ function Header(props) {
 								<Link className="dropdown-item" to="/logocontestentries">
 									Innslag
 								</Link>
-							</div>
-						</li>
-						{/* Skjemaer */}
-						<li className="nav-item dropdown">
-							<a
-								className="nav-link dropdown-toggle"
-								data-toggle="dropdown"
-								href="#"
-								role="button"
-								aria-haspopup="true"
-								aria-expanded="false"
-							>
-								Skjemaer
-							</a>
-							<div className="dropdown-menu">
-								{/* Innmeldingsskjema */}
-								<a
-									className="dropdown-item"
-									href="https://docs.google.com/forms/d/e/1FAIpQLSe1472dT4_s4ImZnylvQFLT_nGlm7ZMBVnLQbohU5hQHpYpkg/viewform"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									Innmeldingsskjema
-								</a>
-								{/* Utlån av spill */}
-								<a
-									className="dropdown-item"
-									href="https://docs.google.com/forms/d/e/1FAIpQLSfQ9N31mhy4phvYfOvnHWeu1haBAyXujTSyYGhIswPCAPikmA/viewform"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									Utlån av spill
-								</a>
 							</div>
 						</li>
 						{/* Finn oss på... */}

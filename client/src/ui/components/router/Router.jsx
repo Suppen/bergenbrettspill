@@ -18,6 +18,7 @@ import { Games } from "../games";
 import { Directions } from "../directions";
 import { LogoContest } from "../logocontest";
 import { Entries } from "../logocontest/entries";
+import { Membership } from "../membership";
 
 /**************************
  * Make the apollo client *
@@ -75,6 +76,15 @@ function Router() {
 					component={() => (
 						<DefaultLayout activeTab="logocontest">
 							<LogoContest />
+						</DefaultLayout>
+					)}
+				/>
+				<Route
+					exact
+					path="/membership"
+					component={() => (
+						<DefaultLayout activeTab={"membership"}>
+							<Membership />
 						</DefaultLayout>
 					)}
 				/>
