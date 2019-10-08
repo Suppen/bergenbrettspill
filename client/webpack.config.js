@@ -53,7 +53,7 @@ module.exports = {
 			},
 			// Static files
 			{
-				test: /\.(png|jpg|webm)$/i,
+				test: /\.(png|jpg|webm|svg)$/i,
 				use: {
 					loader: "file-loader"
 				}

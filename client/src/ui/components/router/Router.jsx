@@ -61,6 +61,7 @@ function Router() {
 						</DefaultLayout>
 					)}
 				/>
+				{/* There are no links to the following two routes anymore. They are still accessible if someone has the URLs */}
 				<Route
 					exact
 					path="/logocontestentries"
@@ -79,6 +80,7 @@ function Router() {
 						</DefaultLayout>
 					)}
 				/>
+				{/* See previous comment */}
 				<Route
 					exact
 					path="/membership"

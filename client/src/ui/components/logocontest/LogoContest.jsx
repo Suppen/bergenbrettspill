@@ -15,6 +15,22 @@ function LogoContest() {
 				<div className="col-md-8 col-sm-12">
 					<div className="row">
 						<div className="col-12">
+							<h1>Avstemningen har åpnet</h1>
+							<p>
+								Se{" "}
+								<a
+									href="https://docs.google.com/forms/d/e/1FAIpQLScYwLYuKlBpc2CQw0A213TwDd4nVoRoOJJwekttieUnoYti-Q/viewform"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									dette skjemaet
+								</a>{" "}
+								for å avgi din stemme
+							</p>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-12">
 							<h1>Logokonkurranse</h1>
 							<p>
 								Bergen Brettspillklubb skal ha ny logo, og styret ønsker at alle som vil kan sende inn bidrag. Vi er en

@@ -64,6 +64,18 @@ function Entries() {
 		<React.Fragment>
 			<div className="row">
 				<div className="col-12">
+					<h1>Avstemningen har åpnet</h1>
+					<p>
+						Se{" "}
+						<a
+							href="https://docs.google.com/forms/d/e/1FAIpQLScYwLYuKlBpc2CQw0A213TwDd4nVoRoOJJwekttieUnoYti-Q/viewform"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							dette skjemaet
+						</a>{" "}
+						for å avgi din stemme
+					</p>
 					<h1>Innslag til logokonkurransen</h1>
 					<p>
 						Det har kommet inn flere innlegg enn forventet til logokonkurransen vår; hele {entries.length} stykker!

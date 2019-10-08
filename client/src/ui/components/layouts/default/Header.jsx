@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faDiscord, faFacebook, faTwitter, faMeetup } from "@fortawesome/free-brands-svg-icons";
 
-import bbkLogo from "../../../../img/logos/bbk.png";
+import bbkLogoWide from "../../../../img/logos/bbk/Bred.svg";
 
 /************************
  * The Header component *
@@ -20,8 +20,8 @@ function Header(props) {
 		<header className="row">
 			<Link className="col-12" to="/">
 				<h1>
-					<img className="logo" src={bbkLogo} alt="Bergen Brettspillklubb" />
-					Bergen Brettspillklubb
+					{/* The wide logo will be shown on large screens */}
+					<img className="logo" src={bbkLogoWide} alt="Bergen Brettspillklubb" />
 				</h1>
 			</Link>
 			<nav className="navbar navbar-expand-sm navbar-light bg-faded col-12">
@@ -55,29 +55,6 @@ function Header(props) {
 							<Link className={`nav-link ${props.activeTab === "games" ? "active" : ""}`} to="/games">
 								Våre spill
 							</Link>
-						</li>
-						{/* Logokonkurranse */}
-						<li className="nav-item dropdown">
-							<a
-								className="nav-link dropdown-toggle"
-								data-toggle="dropdown"
-								href="#"
-								role="button"
-								aria-haspopup="true"
-								aria-expanded="false"
-							>
-								Logokonkurranse
-							</a>
-							<div className="dropdown-menu">
-								{/* Regler */}
-								<Link className="dropdown-item" to="/logocontest">
-									Logokonkurranse
-								</Link>
-								{/* Innlegg */}
-								<Link className="dropdown-item" to="/logocontestentries">
-									Innslag
-								</Link>
-							</div>
 						</li>
 						{/* Finn oss på... */}
 						<li className="nav-item dropdown">
