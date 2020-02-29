@@ -100,7 +100,7 @@ function renderNo(cheapYear, changeLanguage) {
 				<div className="col-12">
 					<ul>
 						<li>
-							<strong>Vipps</strong> er vår foretrukne måte å motta betalinger. I Vipps-appen, velg "Kjøp og betal", og
+							<strong>Vipps</strong> er vår foretrukne måte å motta betalinger. I Vipps-appen, velg "Send", og
 							søk opp "Bergen Brettspillklubb" (nr. 571499).
 						</li>
 						<li>
@@ -206,7 +206,7 @@ function renderEn(cheapYear, changeLanguage) {
 				<div className="col-12">
 					<ul>
 						<li>
-							<strong>Vipps</strong> is our preferred way to receive payment. In the Vipps app, click "Kjøp og betal",
+							<strong>Vipps</strong> is our preferred way to receive payment. In the Vipps app, click "Send",
 							and search for "Bergen Brettspillklubb" (nr. 571499).
 						</li>
 						<li>
