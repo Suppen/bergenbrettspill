@@ -15,17 +15,16 @@ const makeApolloServer = require("./apollo");
  * Sets up the express app
  *
  * @param {Object} settings	Settings for the application
- * @param {Object} dbs	The database object to use
  * @param {Object} apis	The API object to use
  *
  * @returns {Object}	The express app
  */
-const setupExpressApp = (settings, dbs, apis) => {
+const setupExpressApp = (settings, apis) => {
 	// Initialize the app object
 	const app = express();
 
 	// Add GraphQL to it
-	const apolloServer = makeApolloServer(settings, dbs, apis);
+	const apolloServer = makeApolloServer(settings, apis);
 	apolloServer.applyMiddleware({ app });
 
 	return app;

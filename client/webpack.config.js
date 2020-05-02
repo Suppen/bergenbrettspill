@@ -32,7 +32,7 @@ module.exports = {
 				test: /\.scss$/i,
 				use: [
 					{ loader: "style-loader" },
-					{ loader: "css-loader", options: { sourceMap: !inProduction, minimize: inProduction } },
+					{ loader: "css-loader", options: { sourceMap: !inProduction } },
 					{ loader: "sass-loader", options: { sourceMap: !inProduction } }
 				]
 			},

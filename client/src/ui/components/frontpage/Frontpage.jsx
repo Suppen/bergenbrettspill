@@ -28,7 +28,7 @@ function Frontpage() {
 					<div className="row">
 						<div className="col-12">
 							<Query query={Frontpage._gameCountQuery}>
-								{({ loading, data }) => <Description gamecount={loading ? 0 : data.boardgames.length} />}
+								{({ loading, data }) => <Description gamecount={loading ? 0 : data.boardgameCount} />}
 							</Query>
 						</div>
 					</div>
@@ -58,10 +58,8 @@ function Frontpage() {
  * @private
  */
 Frontpage._gameCountQuery = gql`
-	{
-		boardgames {
-			bggId
-		}
+	query {
+		boardgameCount
 	}
 `;
 

@@ -11,12 +11,11 @@ const { typeDefs, resolvers } = require("./schema");
  * Make the setup function *
  ***************************/
 
-const makeApolloServer = (settings, dbs, apis) => {
+const makeApolloServer = (settings, apis) => {
 	const apolloServer = new ApolloServer({
 		typeDefs,
 		resolvers,
 		context: () => ({
-			dbs,
 			apis,
 			settings
 		})

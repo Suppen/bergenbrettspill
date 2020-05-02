@@ -13,32 +13,32 @@ const R = require("ramda");
 
 const typeDefs = gql`
 	type Query {
-		# A list of boardgames all boardgames
+		# A list of all boardgames the club owns according to BoardGameGeek
 		boardgames: [Boardgame!]!
-		# List of all game mechanics
-		gamemechanics: [Gamemechanic!]!
-		# List of the ten next events
+		# Number of board games the club owns according to BoardGameGeek. Expansions are not counted
+		boardgameCount: Int!
+		# List of the next events scheduled on Meetup
 		events(limit: Int!): [Event!]!
 		# List of photos
 		photos: [String!]!
 	}
 
 	type Boardgame {
-		bggId: Int!
-		bggUrl: String!
-		thumbnailUrl: String
-		imageUrl: String
-		title: String
-		minPlayers: Int
-		maxPlayers: Int
-		playingTime: Int
-		expands: Boardgame
-		mechanics: [Gamemechanic]
-	}
-
-	type Gamemechanic {
 		id: Int!
 		name: String!
+		thumbnailUrl: String!
+		minPlayers: Int!
+		maxPlayers: Int!
+		playingTime: Int!
+		mechanics: [String!]!
+		bggUrl: String!
+		expands: Expands
+	}
+
+	type Expands {
+		id: Int!
+		name: String!
+		bggUrl: String!
 	}
 
 	type Event {
@@ -49,25 +49,35 @@ const typeDefs = gql`
 	}
 `;
 
-/**
- * Gets a list of all board games
- *
- * @param {Promise<Object>} db	Promise which resolves to the database to use
- *
- * @returns {Object[]}	The list of board games
- */
-const getGames = db => db.then(db => db.Boardgames.scope("withMechanics").findAll());
+// XXX The caching code below is hacky as fuck. Improve if you can
+const gamesCache = {
+	expires: new Date(0),
+	result: null
+};
+const cachedFetchGames = fetchGames => {
+	if (Date.now() < gamesCache.expires) {
+		return gamesCache.result;
+	}
+
+	gamesCache.expires = new Date(Date.now() + 10 * 60 * 1000);
+	gamesCache.result = fetchGames();
+
+	return cachedFetchGames(fetchGames);
+};
 
 const resolvers = {
 	Query: {
-		// A list of boardgames by ID
-		boardgames: (obj, params, { dbs }) => getGames(dbs.bergenbrettspillklubb),
-		// List of all game mechanics
-		gamemechanics: (obj, params, { dbs }) => dbs.bergenbrettspillklubb.then(db => db.Gamemechanics.findAll()),
+		// A list of boardgames
+		boardgames: (_obj, _params, { apis }) => cachedFetchGames(apis.boardGameGeek.fetchGames),
+		// Count of boardgames
+		boardgameCount: (_obj, _params, { apis }) =>
+			cachedFetchGames(apis.boardGameGeek.fetchGames)
+				.then(R.filter(R.propEq("expands", null)))
+				.then(R.length),
 		// Events
-		events: (obj, { limit }, { apis }) => apis.meetup.events({ page: R.clamp(1, 20, limit) }),
+		events: (_obj, { limit }, { apis }) => apis.meetup.events({ page: R.clamp(1, 20, limit) }),
 		// Photos
-		photos: (obj, params, { apis }) => apis.meetup.photos()
+		photos: (_obj, _params, { apis }) => apis.meetup.photos()
 	}
 };
 
