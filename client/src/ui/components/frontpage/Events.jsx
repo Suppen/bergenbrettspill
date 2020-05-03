@@ -10,12 +10,12 @@ import PropTypes from "prop-types";
  * The Events component *
  ************************/
 
-function Events(props) {
+const Events = ({ events }) => {
 	return (
 		<div className="events">
 			<h2>Kommende hendelser</h2>
 			<ul className="list-unstyled">
-				{props.events.map(e => (
+				{events.map(e => (
 					<li key={e.id} className="list-item card card-body">
 						<a href={e.link} target="_blank" rel="noopener noreferrer">
 							<h3 className="card-title">{e.name}</h3>
@@ -26,7 +26,7 @@ function Events(props) {
 			</ul>
 		</div>
 	);
-}
+};
 
 Events.propTypes = {
 	events: PropTypes.arrayOf(

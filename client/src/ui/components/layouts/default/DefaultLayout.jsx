@@ -11,15 +11,13 @@ import PropTypes from "prop-types";
  * The DefaultLayout component *
  *******************************/
 
-function DefaultLayout(props) {
-	return (
-		<div className="container default-layout">
-			<Header activeTab={props.activeTab} />
-			<main>{props.children}</main>
-			<Footer />
-		</div>
-	);
-}
+const DefaultLayout = ({ activeTab, children }) => (
+	<div className="container default-layout">
+		<Header activeTab={activeTab} />
+		<main>{children}</main>
+		<Footer />
+	</div>
+);
 
 DefaultLayout.propTypes = {
 	activeTab: PropTypes.string,

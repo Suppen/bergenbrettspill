@@ -16,8 +16,6 @@ import { DefaultLayout } from "../layouts/default";
 import { Frontpage } from "../frontpage";
 import { Games } from "../games";
 import { Directions } from "../directions";
-import { LogoContest } from "../logocontest";
-import { Entries } from "../logocontest/entries";
 import { Membership } from "../membership";
 
 /**************************
@@ -30,70 +28,49 @@ const client = new ApolloClient();
  * The Router component *
  ************************/
 
-function Router() {
-	return (
-		<ReactRouter>
-			<ApolloProvider client={client}>
-				<Route
-					exact
-					path="/"
-					component={() => (
-						<DefaultLayout>
-							<Frontpage />
-						</DefaultLayout>
-					)}
-				/>
-				<Route
-					exact
-					path="/games"
-					component={() => (
-						<DefaultLayout activeTab="games">
-							<Games />
-						</DefaultLayout>
-					)}
-				/>
-				<Route
-					exact
-					path="/where"
-					component={() => (
-						<DefaultLayout activeTab="where">
-							<Directions />
-						</DefaultLayout>
-					)}
-				/>
-				{/* There are no links to the following two routes anymore. They are still accessible if someone has the URLs */}
-				<Route
-					exact
-					path="/logocontestentries"
-					component={() => (
-						<DefaultLayout activeTab="logocontest">
-							<Entries />
-						</DefaultLayout>
-					)}
-				/>
-				<Route
-					exact
-					path="/logocontest"
-					component={() => (
-						<DefaultLayout activeTab="logocontest">
-							<LogoContest />
-						</DefaultLayout>
-					)}
-				/>
-				{/* See previous comment */}
-				<Route
-					exact
-					path="/membership"
-					component={() => (
-						<DefaultLayout activeTab={"membership"}>
-							<Membership />
-						</DefaultLayout>
-					)}
-				/>
-			</ApolloProvider>
-		</ReactRouter>
-	);
-}
+const Router = () => (
+	<ReactRouter>
+		<ApolloProvider client={client}>
+			<Route
+				exact
+				path="/"
+				component={() => (
+					<DefaultLayout>
+						<Frontpage />
+					</DefaultLayout>
+				)}
+			/>
+			<Route
+				exact
+				path="/games"
+				component={() => (
+					<DefaultLayout activeTab="games">
+						<Games />
+					</DefaultLayout>
+				)}
+			/>
+			<Route
+				exact
+				path="/where"
+				component={() => (
+					<DefaultLayout activeTab="where">
+						<Directions />
+					</DefaultLayout>
+				)}
+			/>
+			{/* See previous comment */}
+			<Route
+				exact
+				path="/membership"
+				component={() => (
+					<DefaultLayout activeTab={"membership"}>
+						<Membership />
+					</DefaultLayout>
+				)}
+			/>
+		</ApolloProvider>
+	</ReactRouter>
+);
 
 /*************
  * Export it *
