@@ -57,10 +57,10 @@ const Carousel = ({ imageSrcs }) => {
 		})
 	)(R.range(0, 5));
 
-	const carouselHref = "#" + id;
+	const carouselHref = "#" + id.current;
 
 	return (
-		<div id={id} className="carousel slide" data-ride="carousel">
+		<div id={id.current} className="carousel slide" data-ride="carousel">
 			<ol className="carousel-indicators">
 				{imgs.map((_src, i) => (
 					<li key={i} className={i === 0 ? "active" : null} data-slide-to={i} data-target={carouselHref} />
