@@ -21,6 +21,14 @@ const setupMeetupAPI = settings => ({
 			.then(JSON.parse)
 			// Convert the timestamp into a date object
 			.then(R.map(e => R.mergeAll([e, { time: new Date(Number.parseInt(e.time)).toISOString() }])))
+			// Convert rsvp data to an rsvp object
+			.then(
+				R.map(
+					R.when(R.has("rsvp_limit"), obj =>
+						R.assoc("rsvp", { limit: obj.rsvp_limit, yes: obj.yes_rsvp_count, waitlistCount: obj.waitlist_count }, obj)
+					)
+				)
+			)
 			// Catch errors. The API key will be exposed in them...
 			.catch(err => {
 				// Pass on the error message without extra data

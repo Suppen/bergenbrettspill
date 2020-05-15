@@ -7,6 +7,7 @@ import { Carousel } from "./Carousel.jsx";
 import { Description } from "./Description.jsx";
 import { Events } from "./Events.jsx";
 import { Query } from "react-apollo";
+import { Pandemic } from "./Pandemic.jsx";
 import gql from "graphql-tag";
 
 /***************************
@@ -24,6 +25,7 @@ const Frontpage = () => (
 						</Query>
 					</div>
 				</div>
+				<Pandemic />
 				<div className="row">
 					<div className="col-12">
 						<Query query={Frontpage._gameCountQuery}>
@@ -75,6 +77,11 @@ Frontpage._eventQuery = gql`
 			name
 			time
 			link
+			rsvp {
+				limit
+				yes
+				waitlistCount
+			}
 		}
 	}
 `;

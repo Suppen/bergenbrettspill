@@ -46,6 +46,13 @@ const typeDefs = gql`
 		name: String!
 		time: String!
 		link: String!
+		rsvp: Rsvp
+	}
+
+	type Rsvp {
+		limit: Int!
+		yes: Int!
+		waitlistCount: Int!
 	}
 `;
 
