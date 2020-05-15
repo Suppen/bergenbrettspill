@@ -14,16 +14,12 @@ const Description = ({ gamecount }) => {
 	return (
 		<div className="mt-4">
 			<p>
-				Liker du brettspill? Vi samles fredager på <Link to="/where">Nordnes Bydelshus</Link> og spiller alt mulig
+				Liker du brettspill? Vi samles onsdager på <Link to="/where">Nordnes Bydelshus</Link> og spiller alt mulig
 				rart av brettspill. Vi har <Link to="/games">{gamecount} spill</Link>.
 			</p>
 			<p>
 				Ingen erfaring med brettspill er nødvendig. Vi forklarer alle regler før vi begynner et spill, så ikke vær redd
 				for å prøve noe nytt!
-			</p>
-			<p>
-				Vanligvis spiller vi på onsdager, men grunnet pandemien er vi midlertidig flyttet til fredager. Se blå boks
-				over.
 			</p>
 			<p>
 				Første gang er gratis. Deretter koster medlemskap bare 50/150* kr. for hele kalenderåret! Nedre aldersgrense er

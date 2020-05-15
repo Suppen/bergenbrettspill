@@ -15,11 +15,10 @@ const Pandemic = () => (
 				<h2>Klubben er nå åpen igjen</h2>
 				<p>
 					Etter over to måneder i isolasjon har vi endelig fått lov til å begynne å åpne igjen! Første spilling blir
-					fredag 22. mai.
+					onsdag 20. mai.
 				</p>
 				<p>Det blir naturligvis noen endringer frem til smittefaren er over. Det viktigste er:</p>
 				<ul>
-					<li>Spillingen er flyttet til fredager kl. 17:30 til 22:00</li>
 					<li>
 						Det er <strong>obligatorisk påmelding</strong>* gjennom{" "}
 						<a href="https://www.meetup.com/Bergen-Brettspillklubb/" target="_blank" rel="noopener noreferrer">
