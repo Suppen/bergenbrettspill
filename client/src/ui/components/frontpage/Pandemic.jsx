@@ -20,7 +20,7 @@ const Pandemic = () => (
 				<p>Det blir naturligvis noen endringer frem til smittefaren er over. Det viktigste er:</p>
 				<ul>
 					<li>
-						Det er <strong>obligatorisk påmelding</strong>* gjennom{" "}
+						Det er <strong>obligatorisk påmelding</strong>¹ gjennom{" "}
 						<a href="https://www.meetup.com/Bergen-Brettspillklubb/" target="_blank" rel="noopener noreferrer">
 							Meetup
 						</a>{" "}
@@ -30,7 +30,7 @@ const Pandemic = () => (
 					<li>Vi har ikke plass til mer enn 4 grupper. Det blir derfor 4 spillere pr. spill</li>
 					<li>
 						Hvilket spill man skal spille og hvem man skal spille med må være avtalt på forhånd. Diskusjonsfeltet på
-						Meetup kan brukes til dette
+						Meetup skal brukes til dette²
 					</li>
 					<li>Én person skal være ansvarlig for hvert spill, og sette opp og pakke det ned ved start og slutt</li>
 				</ul>
@@ -54,10 +54,11 @@ const Pandemic = () => (
 					Tabletop Simulator.
 				</p>
 				<p>
-					* Husk å melde avbud om du ikke kan likevel! Meetup har venteliste. Om man setter seg på denne, vil man
+					¹ Husk å melde avbud om du ikke kan likevel! Meetup har venteliste. Om man setter seg på denne, vil man
 					automatisk få plass om noen melder avbud. Personer på ventelisten vil også prioriteres uken etter. Melder du
 					deg på og ikke dukker opp, må du stå over uken etter
 				</p>
+				<p>² Legg inn spillforslag som kommentar på Meetup. Svar på kommentaren for å melde deg på</p>
 			</div>
 		</div>
 	</div>
