@@ -26,8 +26,8 @@ const Pandemic = () => (
 						</a>{" "}
 						(se også eventlisten til høyre). Personer som ikke har meldt seg på vil bli bortvist
 					</li>
-					<li>Det settes en grense på 16 deltakere</li>
-					<li>Vi har ikke plass til mer enn 4 grupper. Det blir derfor 4 spillere pr. spill</li>
+					<li>Det settes en grense på 12 deltakere</li>
+					<li>Vi har ikke plass til mer enn 3 grupper. Det blir derfor 4 spillere pr. spill</li>
 					<li>
 						Hvilket spill man skal spille og hvem man skal spille med må være avtalt på forhånd. Diskusjonsfeltet på
 						Meetup skal brukes til dette²
