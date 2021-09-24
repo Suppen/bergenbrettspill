@@ -1,7 +1,3 @@
-/**************************
- * Import important stuff *
- **************************/
-
 import React from "react";
 import { Carousel } from "./Carousel.jsx";
 import { Description } from "./Description.jsx";

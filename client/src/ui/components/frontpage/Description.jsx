@@ -1,11 +1,6 @@
-/**************************
- * Import important stuff *
- **************************/
-
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Pandemic } from "./Pandemic.jsx";
 
 /*****************************
  * The Description component *
@@ -18,7 +13,6 @@ const Description = ({ gamecount }) => {
 				Liker du brettspill? Vi samles hver onsdag på <Link to="/where">Nordnes Bydelshus</Link> og spiller alt mulig
 				rart av brettspill. Vi har <Link to="/games">{gamecount} spill</Link> selv, og medlemmer tar ofte med egne spill
 			</p>
-			<Pandemic />
 			<p>
 				Ingen erfaring med brettspill er nødvendig. Vi forklarer alle regler før vi begynner et spill, så ikke vær redd
 				for å prøve noe nytt!
@@ -28,10 +22,9 @@ const Description = ({ gamecount }) => {
 				hele Juli
 			</p>
 			<p>
-				Første gang er gratis. Deretter koster medlemskap bare 50/150* kr. for hele kalenderåret! Nedre aldersgrense er
-				14 år. Det er ingen øvre aldersgrense
+				Første gang er gratis. Deretter koster medlemskap bare 50 kr. for hele kalenderåret! Nedre aldersgrense er 14
+				år. Det er ingen øvre aldersgrense
 			</p>
-			<p>* 50 kr. til og med året du fyller 25 år, 150 etter</p>
 		</div>
 	);
 };

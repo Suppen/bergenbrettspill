@@ -11,14 +11,10 @@ import React, { useState } from "react";
 const Membership = () => {
 	const [language, setLanguage] = useState("no");
 
-	const cheapYear = new Date().getFullYear() - 25;
-
-	return language === "no"
-		? renderNo(cheapYear, () => setLanguage("en"))
-		: renderEn(cheapYear, () => setLanguage("no"));
+	return language === "no" ? renderNo(() => setLanguage("en")) : renderEn(() => setLanguage("no"));
 };
 
-const renderNo = (cheapYear, changeLanguage) => (
+const renderNo = changeLanguage => (
 	<React.Fragment>
 		<div className="row">
 			<h1 className="col-12">Meldemskap</h1>
@@ -55,8 +51,7 @@ const renderNo = (cheapYear, changeLanguage) => (
 			</p>
 			<div className="col-12">
 				<ul>
-					<li>50 kr/år til og med året man fyller 25, for øyeblikket dersom du er født i {cheapYear} eller senere</li>
-					<li>150 kr/år for alle andre</li>
+					<li>50 kr/år uavhengig av alder</li>
 				</ul>
 			</div>
 			<p className="col-12">Første gang på onsdagsspilling er gratis. Deretter må du være medlem for å være med.</p>
@@ -156,11 +151,7 @@ const renderEn = (cheapYear, changeLanguage) => (
 			</p>
 			<div className="col-12">
 				<ul>
-					<li>
-						50 kr/year up to and including the year you turn 25. At the moment this is for people born in the year{" "}
-						{cheapYear} or later
-					</li>
-					<li>150 kr/year for everyone else</li>
+					<li>50 kr/year independent of age</li>
 				</ul>
 			</div>
 			<p className="col-12">The first wednesday game night is free. After that, you must be a member to attend.</p>
