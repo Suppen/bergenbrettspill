@@ -1,5 +1,6 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import firstImage from "../../assets/img/carousel/first.jpg";
+import { fetchMeetupPhotos, MeetupPhoto } from "../../models/MeetupPhoto";
 
 function shuffle<T>(arr: T[]): T[] {
 	const cloned = [...arr];
@@ -13,34 +14,31 @@ function shuffle<T>(arr: T[]): T[] {
 	return shuffled;
 }
 
-const Carousel = (): JSX.Element => {
-	const [photoUrls, setPhotoUrls] = useState<string[] | null>(null);
-	// TODO Fetch URLs
+interface CarouselProps {
+	photos: MeetupPhoto[];
+}
 
+const Carousel = ({ photos }: CarouselProps): JSX.Element => {
 	// Random ID for the carousel, to allow multiple carousels to exist
 	const id = useRef(Math.random().toString());
 
 	// Take 5 random images to show, plus the static first image
-	const imgs = useMemo(() => {
-		if (photoUrls === null) {
-			return [firstImage];
-		}
-
-		return [firstImage, ...shuffle(photoUrls).slice(0, 5)];
-	}, [photoUrls]);
+	const photoSamples = useMemo(() => {
+		return [firstImage, ...shuffle(photos).slice(0, 5)];
+	}, [photos]);
 
 	const carouselHref = "#" + id.current;
 
 	return (
 		<div id={id.current} className="carousel slide" data-ride="carousel">
 			<ol className="carousel-indicators">
-				{imgs.map((_src, i) => (
-					<li key={i} className={i === 0 ? "active" : ""} data-slide-to={i} data-target={carouselHref} />
+				{photoSamples.map((src, i) => (
+					<li key={src} className={i === 0 ? "active" : ""} data-slide-to={i} data-target={carouselHref} />
 				))}
 			</ol>
 			<div className="carousel-inner">
-				{imgs.map((src, i) => (
-					<div key={i} className={`carousel-item ${i === 0 ? "active" : ""}`}>
+				{photoSamples.map((src, i) => (
+					<div key={src} className={`carousel-item ${i === 0 ? "active" : ""}`}>
 						<img className="w-100" src={src} alt="" />
 					</div>
 				))}
@@ -55,4 +53,27 @@ const Carousel = (): JSX.Element => {
 	);
 };
 
-export { Carousel };
+const CarouselContainer = (): JSX.Element => {
+	const [photos, setPhotos] = useState<string[] | null>(null);
+	useEffect(() => {
+		let mounted = true;
+
+		void fetchMeetupPhotos().then(setPhotos);
+		void (async () => {
+			const photos = await fetchMeetupPhotos();
+			if (!mounted) {
+				return;
+			}
+			setPhotos(photos);
+		});
+
+		return () => {
+			mounted = false;
+		};
+	}, []);
+
+	return <Carousel photos={photos ?? []} />;
+};
+
+export default CarouselContainer;
+export { Carousel, CarouselContainer };

@@ -1,12 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
-import { BGGGame } from "../../models/BGGGame";
+import { BGGGame, fetchBGGGames } from "../../models/BGGGame";
 
-const GameTable = (): JSX.Element | null => {
-	const [games, setGames] = useState<BGGGame[] | null>(null);
-	// TODO Fetch games
+interface GameTableProps {
+	games: BGGGame[];
+}
 
+const GameTable = ({ games }: GameTableProps): JSX.Element | null => {
 	const [filter, setFilter] = useState<{
 		name: string;
 		players: number;
@@ -214,4 +215,28 @@ const GameTable = (): JSX.Element | null => {
 	);
 };
 
-export { GameTable };
+const GameTableContainer = (): JSX.Element | null => {
+	const [games, setGames] = useState<BGGGame[] | null>(null);
+	useEffect(() => {
+		let mounted = true;
+
+		void (async () => {
+			const games = await fetchBGGGames();
+
+			if (!mounted) {
+				return;
+			}
+
+			setGames(games);
+		});
+
+		return () => {
+			mounted = false;
+		};
+	}, []);
+
+	return games === null ? null : <GameTable games={games} />;
+};
+
+export default GameTableContainer;
+export { GameTable, GameTableContainer };

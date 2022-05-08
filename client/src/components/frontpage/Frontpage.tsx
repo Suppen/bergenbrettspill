@@ -1,11 +1,10 @@
 import React from "react";
 import DefaultLayout from "../layouts/default/DefaultLayout.js";
-import { Carousel } from "./Carousel.jsx";
-import { Description } from "./Description.jsx";
-import { Events } from "./Events.jsx";
+import Carousel from "./Carousel.jsx";
+import Description from "./Description.jsx";
+import Events from "./Events.jsx";
 
 const Frontpage = (): JSX.Element => {
-
 	return (
 		<DefaultLayout>
 			<div className="row">

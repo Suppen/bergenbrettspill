@@ -1,6 +1,6 @@
 import React from "react";
 import DefaultLayout from "../layouts/default/DefaultLayout";
-import { GameTable } from "./GameTable.jsx";
+import GameTable from "./GameTable.jsx";
 
 const Games = (): JSX.Element => (
 	<DefaultLayout>
