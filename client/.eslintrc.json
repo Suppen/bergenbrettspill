@@ -1,55 +1,38 @@
 {
+	"root": true,
 	"env": {
 		"es6": true,
-		"browser": true
+		"jest": true
 	},
 	"extends": [
 		"eslint:recommended",
-		"plugin:react/recommended"
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
+		"prettier",
+		"plugin:prettier/recommended"
 	],
+	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"ecmaVersion": 2018,
-		"ecmaFeatures": {
-			"jsx": true
-		},
-		"sourceType": "module"
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"project": [
+			"./tsconfig.json"
+		]
 	},
+	"plugins": [
+		"@typescript-eslint",
+		"prettier",
+		"react-hooks"
+	],
 	"rules": {
-		"indent": [
-			"error",
-			"tab",
-			{
-				"SwitchCase": 1
-			}
-		],
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
-		"quotes": [
-			"error",
-			"double"
-		],
-		"semi": [
-			"error",
-			"always"
-		],
 		"no-var": "error",
-		"no-unused-vars": "warn",
 		"prefer-const": "warn",
 		"eqeqeq": "error",
-		"valid-jsdoc": "warn",
 		"class-methods-use-this": "warn",
 		"prettier/prettier": "error",
 		"no-eval": "error",
 		"no-multi-spaces": "error",
-		"strict": [
-			"error",
-			"global"
-		]
-	},
-	"plugins": [
-		"prettier",
-		"react"
-	]
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn"
+	}
 }
