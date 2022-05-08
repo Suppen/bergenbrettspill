@@ -1,6 +1,4 @@
 import * as yup from "yup";
-import { env } from "../env";
-import createJSONFetcher from "../fetchers/jsonFetcher";
 
 /** A Game object from BoardGameGeek */
 export interface BGGGame {
@@ -12,7 +10,7 @@ export interface BGGGame {
 	playingTime: number;
 	mechanics: string[];
 	bggUrl: string;
-	expands?: Pick<BGGGame, "id" | "name" | "bggUrl">;
+	expands: Pick<BGGGame, "id" | "name" | "bggUrl"> | null;
 }
 
 /** Partial schema of a BoardGameGeek game, to be able to partially recurse with it */
@@ -29,15 +27,7 @@ const bggGameSchemaBase = yup.object({
 
 /** Schema for validating a BoardGameGeek game object */
 export const bggGameSchema = bggGameSchemaBase.shape({
-	expands: bggGameSchemaBase.pick(["id", "name", "bggUrl"])
+	expands: bggGameSchemaBase.pick(["id", "name", "bggUrl"]).nullable()
 });
 
 bggGameSchema as yup.SchemaOf<BGGGame>;
-
-/**
- * Fetches all bames owned by Bergen Brettspillklubb from BoardGameGeek
- *
- * @returns List of all games owned by Bergen Brettspillklubb
- */
-export const fetchBGGGames = (): Promise<BGGGame[]> =>
-	createJSONFetcher<BGGGame[]>(yup.array(bggGameSchema.required()).required())(`${env.BACKEND_URL}/games/list`);

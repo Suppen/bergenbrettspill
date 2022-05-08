@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
+import { gql, useQuery } from "@apollo/client";
 import firstImage from "../../assets/img/carousel/first.jpg";
-import { fetchMeetupPhotos, MeetupPhoto } from "../../models/MeetupPhoto";
+import { MeetupPhoto, meetupPhotoSchema } from "../../models/MeetupPhoto";
+import * as yup from "yup";
 
 function shuffle<T>(arr: T[]): T[] {
 	const cloned = [...arr];
@@ -19,23 +21,24 @@ interface CarouselProps {
 }
 
 const Carousel = ({ photos }: CarouselProps): JSX.Element => {
-	// Random ID for the carousel, to allow multiple carousels to exist
-	const id = useRef(Math.random().toString());
+	const id = "carousel";
 
 	// Take 5 random images to show, plus the static first image
-	const photoSamples = useMemo(() => {
-		return [firstImage, ...shuffle(photos).slice(0, 5)];
-	}, [photos]);
-
-	const carouselHref = "#" + id.current;
+	const photoSamples = useMemo(() => [firstImage, ...shuffle(photos).slice(0, 5)], [photos]);
 
 	return (
-		<div id={id.current} className="carousel slide" data-ride="carousel">
-			<ol className="carousel-indicators">
+		<div id={id} className="carousel slide" data-bs-ride="carousel">
+			<div className="carousel-indicators">
 				{photoSamples.map((src, i) => (
-					<li key={src} className={i === 0 ? "active" : ""} data-slide-to={i} data-target={carouselHref} />
+					<button
+						key={src}
+						type="button"
+						className={i === 0 ? "active" : ""}
+						data-bs-slide-to={i.toString()}
+						data-bs-target={`#${id}`}
+					></button>
 				))}
-			</ol>
+			</div>
 			<div className="carousel-inner">
 				{photoSamples.map((src, i) => (
 					<div key={src} className={`carousel-item ${i === 0 ? "active" : ""}`}>
@@ -43,34 +46,27 @@ const Carousel = ({ photos }: CarouselProps): JSX.Element => {
 					</div>
 				))}
 			</div>
-			<a className="carousel-control-prev" href={carouselHref} role="button" data-slide="prev">
-				<span className="carousel-control-prev-icon" aria-hidden="true" />
-			</a>
-			<a className="carousel-control-next" href={carouselHref} role="button" data-slide="next">
-				<span className="carousel-control-next-icon" aria-hidden="true" />
-			</a>
+			<button className="carousel-control-prev" type="button" data-bs-target={`#${id}`} data-bs-slide="prev">
+				<span className="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span className="visually-hidden">Forrige</span>
+			</button>
+			<button className="carousel-control-next" type="button" data-bs-target={`#${id}`} data-bs-slide="next">
+				<span className="carousel-control-next-icon" aria-hidden="true"></span>
+				<span className="visually-hidden">Neste</span>
+			</button>
 		</div>
 	);
 };
 
 const CarouselContainer = (): JSX.Element => {
-	const [photos, setPhotos] = useState<string[] | null>(null);
-	useEffect(() => {
-		let mounted = true;
+	const { data } = useQuery<{ photos: unknown }>(gql`
+		{
+			photos
+		}
+	`);
 
-		void fetchMeetupPhotos().then(setPhotos);
-		void (async () => {
-			const photos = await fetchMeetupPhotos();
-			if (!mounted) {
-				return;
-			}
-			setPhotos(photos);
-		});
-
-		return () => {
-			mounted = false;
-		};
-	}, []);
+	const photos =
+		data?.photos === undefined ? [] : yup.array(meetupPhotoSchema.required()).required().validateSync(data.photos);
 
 	return <Carousel photos={photos ?? []} />;
 };

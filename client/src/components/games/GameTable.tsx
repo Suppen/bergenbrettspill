@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
-import { BGGGame, fetchBGGGames } from "../../models/BGGGame";
+import { BGGGame, bggGameSchema } from "../../models/BGGGame";
+import { gql, useQuery } from "@apollo/client";
+import * as yup from "yup";
 
 interface GameTableProps {
 	games: BGGGame[];
@@ -97,8 +99,8 @@ const GameTable = ({ games }: GameTableProps): JSX.Element | null => {
 		gamesToGroup: NonNullable<typeof games>
 	): (NonNullable<typeof games>[number] & { expansions: NonNullable<typeof games> })[] => {
 		const grouped: ReturnType<typeof groupExpansions> = [];
-		for (const game of grouped) {
-			if (game.expands !== undefined) {
+		for (const game of gamesToGroup) {
+			if (game.expands !== null) {
 				continue;
 			}
 
@@ -110,10 +112,6 @@ const GameTable = ({ games }: GameTableProps): JSX.Element | null => {
 
 		return grouped;
 	};
-
-	if (games === null) {
-		return null;
-	}
 
 	const preparedGames = groupExpansions(applySort(applyFilter(games)));
 
@@ -216,24 +214,30 @@ const GameTable = ({ games }: GameTableProps): JSX.Element | null => {
 };
 
 const GameTableContainer = (): JSX.Element | null => {
-	const [games, setGames] = useState<BGGGame[] | null>(null);
-	useEffect(() => {
-		let mounted = true;
-
-		void (async () => {
-			const games = await fetchBGGGames();
-
-			if (!mounted) {
-				return;
+	const { data } = useQuery<{ boardgames: unknown }>(gql`
+		query {
+			boardgames {
+				id
+				name
+				thumbnailUrl
+				minPlayers
+				maxPlayers
+				playingTime
+				mechanics
+				expands {
+					id
+					name
+					bggUrl
+				}
+				bggUrl
 			}
+		}
+	`);
 
-			setGames(games);
-		});
-
-		return () => {
-			mounted = false;
-		};
-	}, []);
+	const games =
+		data?.boardgames === undefined
+			? null
+			: yup.array(bggGameSchema.required()).required().validateSync(data.boardgames);
 
 	return games === null ? null : <GameTable games={games} />;
 };

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
-import { fetchGameCount, GameCount } from "../../models/GameCount";
 
 interface DescriptionProps {
-	gameCount: GameCount | null;
+	gameCount: number | null;
 }
 
 const Description = ({ gameCount }: DescriptionProps) => (
@@ -30,24 +30,15 @@ const Description = ({ gameCount }: DescriptionProps) => (
 );
 
 const DescriptionContainer = (): JSX.Element => {
-	const [gameCount, setGameCount] = useState<GameCount | null>(null);
-	useEffect(() => {
-		let mounted = true;
-
-		void (async () => {
-			const count = await fetchGameCount();
-			if (!mounted) {
-				return;
+	const { data } = useQuery<{ boardgameCount: number }>(
+		gql`
+			query {
+				boardgameCount
 			}
-			setGameCount(count);
-		});
+		`
+	);
 
-		return () => {
-			mounted = false;
-		};
-	}, []);
-
-	return <Description gameCount={gameCount} />;
+	return <Description gameCount={data?.boardgameCount ?? null} />;
 };
 
 export default DescriptionContainer;

@@ -1,6 +1,4 @@
 import * as yup from "yup";
-import { env } from "../env";
-import createJSONFetcher from "../fetchers/jsonFetcher";
 
 /** One of Bergen Brettspillklubb's events, announced through Meetup */
 export interface MeetupEvent {
@@ -12,7 +10,7 @@ export interface MeetupEvent {
 		limit: number;
 		yes: number;
 		waitlistCount: number;
-	};
+	} | null;
 }
 
 /** Schema for validating a Meetup event */
@@ -27,17 +25,7 @@ export const meetupEventSchema = yup.object({
 			yes: yup.number().required(),
 			waitlistCount: yup.number().required()
 		})
-		.required()
+		.nullable()
 });
 
 meetupEventSchema as yup.SchemaOf<MeetupEvent>;
-
-/**
- * Fetches all upcoming events
- *
- * @returns A list of all upcoming events
- */
-export const fetchMeetupEvents = (): Promise<MeetupEvent[]> =>
-	createJSONFetcher<MeetupEvent[]>(yup.array(meetupEventSchema.required()).required())(
-		`${env.BACKEND_URL}/meetup/events`
-	);

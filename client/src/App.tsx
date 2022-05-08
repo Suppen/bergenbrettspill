@@ -1,12 +1,13 @@
 import React, { StrictMode } from "react";
 import { Router } from "./components/application/Router";
-import { env } from "./env";
-
-console.log(env);
+import { client as apolloClient } from "./apollo";
+import { ApolloProvider } from "@apollo/client";
 
 const App = (): JSX.Element => (
 	<StrictMode>
-		<Router />
+		<ApolloProvider client={apolloClient}>
+			<Router />
+		</ApolloProvider>
 	</StrictMode>
 );
 

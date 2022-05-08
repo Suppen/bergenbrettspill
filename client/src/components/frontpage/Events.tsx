@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as dateFns from "date-fns";
-import { fetchMeetupEvents, MeetupEvent } from "../../models/MeetupEvent";
+import { MeetupEvent, meetupEventSchema } from "../../models/MeetupEvent";
+import { gql, useQuery } from "@apollo/client";
+import * as yup from "yup";
 
 interface EventsProps {
 	events: MeetupEvent[] | null;
@@ -36,22 +38,26 @@ const Events = ({ events }: EventsProps) => (
 );
 
 const EventsContainer = (): JSX.Element => {
-	const [events, setEvents] = useState<MeetupEvent[] | null>(null);
-	useEffect(() => {
-		let mounted = true;
-
-		void (async () => {
-			const events = await fetchMeetupEvents();
-			if (!mounted) {
-				return;
+	const { data } = useQuery<{ events: unknown }>(gql`
+		{
+			events(limit: 6) {
+				id
+				name
+				time
+				link
+				rsvp {
+					limit
+					yes
+					waitlistCount
+				}
 			}
-			setEvents(events);
-		});
+		}
+	`);
 
-		return () => {
-			mounted = false;
-		};
-	}, []);
+	const events =
+		data?.events === undefined
+			? null
+			: yup.array(meetupEventSchema.required()).required().validateSync(data.events);
 
 	return <Events events={events} />;
 };
