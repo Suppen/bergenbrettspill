@@ -9,7 +9,6 @@ const Header = (): JSX.Element => (
 	<header className="row">
 		<Link className="col-12" to="/">
 			<h1>
-				{/* The wide logo will be shown on large screens */}
 				<img className="logo" src={bbkLogoWide} alt="Bergen Brettspillklubb" />
 			</h1>
 		</Link>
@@ -17,8 +16,8 @@ const Header = (): JSX.Element => (
 			<button
 				className="navbar-toggler"
 				type="button"
-				data-toggle="collapse"
-				data-target="#nav-content"
+				data-bs-toggle="collapse"
+				data-bs-target="#nav-content"
 				aria-controls="nav-content"
 				aria-expanded="false"
 				aria-label="Toggle navigation"
@@ -36,7 +35,7 @@ const Header = (): JSX.Element => (
 					{/* Medlemskap */}
 					<li className="nav-item">
 						<NavLink to="/membership" className="nav-link">
-							Bli medlem!
+							<strong>Bli medlem!</strong>
 						</NavLink>
 					</li>
 					{/* Våre spill */}
@@ -45,6 +44,52 @@ const Header = (): JSX.Element => (
 							Våre spill
 						</NavLink>
 					</li>
+					{/* Dokumenter */}
+					<li className="nav-item dropdown">
+						<a
+							className="nav-link dropdown-toggle"
+							data-bs-toggle="dropdown"
+							href="#"
+							role="button"
+							aria-haspopup="true"
+							aria-expanded="false"
+						>
+							Dokumenter
+						</a>
+						<ul className="dropdown-menu">
+							<li>
+								<a
+									className="dropdown-item"
+									href="https://drive.google.com/file/d/17Una-Lls0MiwKzll_558KXVc0XOe1rPB/view?usp=sharing"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Vedtekter
+								</a>
+							</li>
+							<li>
+								<a
+									className="dropdown-item"
+									href="https://docs.google.com/document/d/1ufidOpgZOzrPGWIltnCSklgxWnkEwNkwgtGwCK1pprc/edit?usp=sharing"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Trivselsregler
+								</a>
+							</li>
+							<li>
+								<a
+									className="dropdown-item"
+									href="https://docs.google.com/document/d/1NH2GJsy_u9PwbGvG8SDKeAVpy8l9ZxJxGbzUXbVNluc/edit?usp=sharing"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Retningslinjer for en trygg brettspillklubb
+								</a>
+							</li>
+						</ul>
+					</li>
+
 					{/* Finn oss på... */}
 					<li className="nav-item dropdown">
 						<a

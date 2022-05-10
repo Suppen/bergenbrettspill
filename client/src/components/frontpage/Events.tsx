@@ -18,7 +18,7 @@ const Events = ({ events }: EventsProps) => (
 						<h3 className="card-title">{e.name}</h3>
 					</a>
 					<p>
-						<time dateTime={e.time.toISOString()}>{dateFns.format(e.time, "Do MMM HH:mm")}</time>
+						<time dateTime={e.time.toISOString()}>{dateFns.format(e.time, "dd MMM HH:mm")}</time>
 					</p>
 					{e.rsvp !== null ? (
 						<p>

@@ -9,22 +9,28 @@ interface DescriptionProps {
 const Description = ({ gameCount }: DescriptionProps) => (
 	<div className="mt-4">
 		<p>
-			Liker du brettspill? Vi samles hver onsdag på <Link to="/where">Nordnes Bydelshus</Link> og spiller alt
-			mulig rart av brettspill. Vi har{" "}
-			<Link to="/games">{gameCount === null ? "(beregner...)" : gameCount} spill</Link> selv, og medlemmer tar
-			ofte med egne spill
+			Vi møtes hver onsdag på <Link to="where">Nordnes Bydelshus</Link> mellom kl 17:30 og 23:00 for hyggelig
+			samspill, med unntak av jul, påske og hele juli måned. Den første spillkvelden er gratis, deretter må man{" "}
+			<Link to="/membership">være medlem</Link> for å delta. Medlemskontingenten i klubben er 50 kroner per
+			kalenderår. Våre arrangementer er rusfrie, og åpne for alle over 14 år.
 		</p>
 		<p>
-			Ingen erfaring med brettspill er nødvendig. Vi forklarer alle regler før vi begynner et spill, så ikke vær
-			redd for å prøve noe nytt!
+			Fra kl. 17:30 kan du spille småspill, mingle og stemme på hvilket hovedspill du vil spille. Kl. 18:00
+			avsluttes avstemningen og spillerne fordeles på hovedspillene. Kommer du etter kl. 18:00 er du derfor ikke
+			sikret å være med på et spill.
 		</p>
 		<p>
-			Se listen til høyre for våre planlagte spilldager. Vi spiller vanligvis hver onsdag med unntak av røde dager
-			og hele Juli
+			Ikke vær redd for å prøve noe du ikke har spilt før. Vi går alltid gjennom spillereglene enten man er ny
+			eller noen bare trenger en oppfriskning.
 		</p>
 		<p>
-			Første gang er gratis. Deretter koster medlemskap bare 50 kr. for hele kalenderåret! Nedre aldersgrense er
-			14 år. Det er ingen øvre aldersgrense
+			Klubben har{" "}
+			<Link to="/games">{gameCount === null ? "en betydelig spillsamling" : `${gameCount} spill`}</Link> selv, og
+			det er fritt frem for å ta med seg egne spill hjemmefra.
+		</p>
+		<p>
+			Det er også mulig å låne med seg et av klubben sine spill mellom spillkvelder, så lenge det leveres tilbake
+			ved neste spillkveld. Ta kontakt med et styremedlem for å avtale lån.
 		</p>
 	</div>
 );
