@@ -155,7 +155,6 @@ const renderEn = (changeLanguage: () => void): JSX.Element => (
 							Possiblity to borrow our <Link to="/games">many games</Link>
 						</li>
 						<li>Right to vote on our decisions, like what games we should buy</li>
-						<li>Stemme-, tale- og forslagsrett på våre møter, hovedsaklig årsmøtet</li>
 						<li>Voting, suggestion, and speaking rights at our meetings, mainly our annual meeting</li>
 					</ul>
 				</p>
