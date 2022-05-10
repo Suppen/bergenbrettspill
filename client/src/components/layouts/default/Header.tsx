@@ -26,16 +26,16 @@ const Header = (): JSX.Element => (
 			</button>
 			<div id="nav-content" className="collapse navbar-collapse">
 				<ul className="navbar-nav me-auto">
-					{/* Hvor er vi? */}
-					<li className="nav-item">
-						<NavLink to="/where" className="nav-link">
-							Hvor er vi?
-						</NavLink>
-					</li>
 					{/* Medlemskap */}
 					<li className="nav-item">
 						<NavLink to="/membership" className="nav-link">
 							<strong>Bli medlem!</strong>
+						</NavLink>
+					</li>
+					{/* Hvor er vi? */}
+					<li className="nav-item">
+						<NavLink to="/where" className="nav-link">
+							Hvor er vi?
 						</NavLink>
 					</li>
 					{/* Våre spill */}
