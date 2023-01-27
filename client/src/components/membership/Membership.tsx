@@ -91,13 +91,13 @@ const renderNo = (changeLanguage: () => void): JSX.Element => (
 					&quot;Send&quot;, og søk opp &quot;Bergen Brettspillklubb&quot; (nr. 571499).
 				</li>
 				<li>
-					<strong>Bankoverføring</strong> er også akseptabelt. Send pengene til kontonr. 1503 74 62575 og merk
+					<strong>Bankoverføring</strong> er også akseptabelt. Send pengene til kontonr. 1503 74 39611 og merk
 					betalingen med navnet ditt. Send gjerne en <a href="mailto:bergenbrettspill@gmail.com">e-post</a> om
 					at du har gjort dette.
 				</li>
 				<li>
-					Vi har også <strong>kortterminal</strong> i klubben. Dette krever naturligvis fysisk tilstedeværelse
-					i klubben.
+					Vi har også <strong>kortterminal</strong> i klubben. Dette krever naturligvis fysisk
+					tilstedeværelse.
 				</li>
 				<li>
 					Vi er lovpålagt å ta imot <strong>kontanter</strong>, men velg helst en av de andre løsningene om du
@@ -191,7 +191,7 @@ const renderEn = (changeLanguage: () => void): JSX.Element => (
 				</li>
 				<li>
 					<strong>Bank transactions</strong> are also acceptable. Send the money to account number 1503 74
-					62575 and mark your payment with your name. Please send us{" "}
+					39611 and mark your payment with your name. Please send us{" "}
 					<a href="mailto:bergenbrettspill@gmail.com">an email</a> if you do this.
 				</li>
 				<li>

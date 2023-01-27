@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faDiscord, faFacebook, faTwitter, faMeetup } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord, faFacebook, faMeetup } from "@fortawesome/free-brands-svg-icons";
 import bbkLogoWide from "../../../assets/img/logos/bbk/Bred.svg";
 
 const Header = (): JSX.Element => (
@@ -133,17 +133,6 @@ const Header = (): JSX.Element => (
 								>
 									<FontAwesomeIcon icon={faFacebook} style={{ color: "#3b5998" }} />{" "}
 									<span>Facebook</span>
-								</a>
-							</li>
-							<li>
-								<a
-									className="dropdown-item"
-									href="https://twitter.com/bergenspill"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<FontAwesomeIcon icon={faTwitter} style={{ color: "#1da1f2" }} />{" "}
-									<span>Twitter</span>
 								</a>
 							</li>
 							<li>
