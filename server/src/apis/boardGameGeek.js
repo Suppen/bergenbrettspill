@@ -1,6 +1,4 @@
-"use strict";
-
-const xml2js = require("xml2js");
+import { parseStringPromise } from "xml2js";
 
 /**
  * Gets and parses XML from a HTTPS resource
@@ -14,7 +12,7 @@ const xml2js = require("xml2js");
 const httpsGetXml = url =>
 	fetch(url)
 		.then(res => res.text())
-		.then(xml2js.parseStringPromise)
+		.then(parseStringPromise);
 
 /**
  * Makes a BoardGameGeek URL from a game ID
@@ -70,7 +68,9 @@ const fetchGameItems = async ids => {
 	let items = [];
 	for (let i = 0; i < ids.length; i += 20) {
 		const batchIds = ids.slice(i, i + 20);
-		const result = await httpsGetXml(`https://boardgamegeek.com/xmlapi2/thing?type=boardgame,boardgameexpansion&id=${batchIds.join(",")}`);
+		const result = await httpsGetXml(
+			`https://boardgamegeek.com/xmlapi2/thing?type=boardgame,boardgameexpansion&id=${batchIds.join(",")}`
+		);
 		items = [...items, ...result.items.item];
 	}
 
@@ -87,14 +87,17 @@ const fetchGameItems = async ids => {
  * @private
  */
 const processGameItem = alternativeNameMap => item => {
+	const id = Number(item.$.id);
+
 	const game = {
-		id: Number(item.$.id),
-		name: item.name.find(n => n.$.type === "primary").$.value,
+		id,
+		name: alternativeNameMap.get(id) ?? item.name.find(n => n.$.type === "primary").$.value,
 		thumbnailUrl: item.thumbnail[0],
 		minPlayers: Number(item.minplayers[0].$.value),
 		maxPlayers: Number(item.maxplayers[0].$.value),
 		playingTime: Number(item.playingtime[0].$.value),
 		mechanics: item.link.filter(l => l.$.type === "boardgamemechanic").map(l => l.$.value),
+		bggUrl: makeBggUrl(id),
 		expands: (item => {
 			const expands = item.link.filter(l => l.$.type === "boardgameexpansion").find(l => l.$.inbound !== undefined);
 
@@ -107,12 +110,6 @@ const processGameItem = alternativeNameMap => item => {
 			};
 		})(item)
 	};
-
-	if (alternativeNameMap.has(game.id)) {
-		game.name = alternativeNameMap.get(game.id);
-	}
-
-	game.bggUrl = makeBggUrl(game.id);
 
 	if (game.expands !== null) {
 		game.expands.bggUrl = makeBggUrl(game.expands.id);
@@ -146,4 +143,4 @@ const setupBoardGameGeekApi = () => ({
 	fetchGames
 });
 
-module.exports = setupBoardGameGeekApi;
+export default setupBoardGameGeekApi;

@@ -1,7 +1,5 @@
-"use strict";
-
-const setupMeetupAPI = require("./meetup");
-const setupBoardGameGeekAPI = require("./boardGameGeek");
+import setupMeetupAPI from "./meetup.js";
+import setupBoardGameGeekAPI from "./boardGameGeek.js";
 
 /*******************************
  * Make the API setup function *
@@ -16,4 +14,4 @@ const setupAPIs = settings => ({
  * Export it *
  *************/
 
-module.exports = setupAPIs;
+export default setupAPIs;

@@ -1,16 +1,13 @@
-"use strict";
-
-const setupAPIs = require("./apis");
-const setupExpressApp = require("./expressApp");
-const http = require("http");
-const fs = require("fs");
+import setupAPIs from "./apis/index.js";
+import setupExpressApp from "./expressApp/index.js";
+import { createServer } from "http";
+import { readFile } from "fs/promises";
 
 /******************
  * Set up the app *
  ******************/
 
-fs.promises
-	.readFile("settings.json", "UTF-8")
+readFile("settings.json", "UTF-8")
 	.then(JSON.parse)
 	.then(async settings => {
 		// Set up the APIs
@@ -20,7 +17,7 @@ fs.promises
 		const app = await setupExpressApp(settings, apis);
 
 		// Put the express app on a web server
-		const webserver = http.createServer(app);
+		const webserver = createServer(app);
 
 		/************
 		 * Start it *

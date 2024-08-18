@@ -1,6 +1,4 @@
-"use strict";
-
-const R = require("ramda");
+import { map, mergeAll, when, has, assoc, prop } from "ramda";
 
 /***************************
  * Make the setup function *
@@ -11,12 +9,12 @@ const setupMeetupAPI = settings => ({
 		fetch(`${settings.apis.meetup.endpoints.events}?${new URLSearchParams(queryParams).toString()}`)
 			.then(res => res.json())
 			// Convert the timestamp into a date object
-			.then(R.map(e => R.mergeAll([e, { time: new Date(Number.parseInt(e.time)).toISOString() }])))
+			.then(map(e => mergeAll([e, { time: new Date(Number.parseInt(e.time)).toISOString() }])))
 			// Convert rsvp data to an rsvp object
 			.then(
-				R.map(
-					R.when(R.has("rsvp_limit"), obj =>
-						R.assoc("rsvp", { limit: obj.rsvp_limit, yes: obj.yes_rsvp_count, waitlistCount: obj.waitlist_count }, obj)
+				map(
+					when(has("rsvp_limit"), obj =>
+						assoc("rsvp", { limit: obj.rsvp_limit, yes: obj.yes_rsvp_count, waitlistCount: obj.waitlist_count }, obj)
 					)
 				)
 			)
@@ -29,11 +27,11 @@ const setupMeetupAPI = settings => ({
 		fetch(settings.apis.meetup.endpoints.photos)
 			.then(res => res.json())
 			// Extract the photo URLs
-			.then(R.map(R.prop("photo_link")))
+			.then(map(prop("photo_link")))
 });
 
 /*************
  * Export it *
  *************/
 
-module.exports = setupMeetupAPI;
+export default setupMeetupAPI;

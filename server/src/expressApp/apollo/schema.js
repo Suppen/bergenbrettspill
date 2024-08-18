@@ -1,7 +1,5 @@
-"use strict";
-
-const { gql } = require("apollo-server-express");
-const R = require("ramda");
+import { gql } from "apollo-server-express";
+import { filter, propEq, length, clamp } from "ramda";
 
 /*********************************
  * Make the schema and resolvers *
@@ -75,10 +73,10 @@ const resolvers = {
 		// Count of boardgames
 		boardgameCount: (_obj, _params, { apis }) =>
 			cachedFetchGames(apis.boardGameGeek.fetchGames)
-				.then(R.filter(R.propEq("expands", null)))
-				.then(R.length),
+				.then(filter(propEq("expands", null)))
+				.then(length),
 		// Events
-		events: (_obj, { limit }, { apis }) => apis.meetup.events({ page: R.clamp(1, 20, limit) }),
+		events: (_obj, { limit }, { apis }) => apis.meetup.events({ page: clamp(1, 20, limit) }),
 		// Photos
 		photos: (_obj, _params, { apis }) => apis.meetup.photos()
 	}
@@ -88,7 +86,4 @@ const resolvers = {
  * Export them *
  ***************/
 
-module.exports = {
-	typeDefs,
-	resolvers
-};
+export { typeDefs, resolvers };

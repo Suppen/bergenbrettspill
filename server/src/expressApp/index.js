@@ -1,7 +1,5 @@
-"use strict";
-
-const express = require("express");
-const makeApolloServer = require("./apollo");
+import express from "express";
+import makeApolloServer from "./apollo/index.js";
 
 /***************************
  * Make the setup function *
@@ -27,4 +25,4 @@ const setupExpressApp = async (settings, apis) => {
 	return app;
 };
 
-module.exports = setupExpressApp;
+export default setupExpressApp;

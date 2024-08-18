@@ -1,7 +1,5 @@
-"use strict";
-
-const { ApolloServer } = require("apollo-server-express");
-const { typeDefs, resolvers } = require("./schema");
+import { ApolloServer } from "apollo-server-express";
+import { typeDefs, resolvers } from "./schema.js";
 
 /***************************
  * Make the setup function *
@@ -24,4 +22,4 @@ const makeApolloServer = (settings, apis) => {
  * Export it *
  *************/
 
-module.exports = makeApolloServer;
+export default makeApolloServer;
