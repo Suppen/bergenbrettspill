@@ -1,4 +1,3 @@
-import React from "react";
 import DefaultLayout from "../layouts/default/DefaultLayout.js";
 import Carousel from "./Carousel.jsx";
 import Description from "./Description.jsx";
@@ -10,9 +9,9 @@ const Frontpage = (): JSX.Element => {
 			<div className="row">
 				<div className="col-md-8 col-sm-12">
 					<div className="row">
-						<div className="col-12">
+						<span className="col-12">
 							<Carousel />
-						</div>
+						</span>
 					</div>
 					<div className="row">
 						<div className="col-12">

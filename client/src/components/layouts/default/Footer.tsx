@@ -1,4 +1,3 @@
-import React from "react";
 import hyperionLogo from "../../../assets/img/logos/hyperion.png";
 import bkLogo from "../../../assets/img/logos/bergenkommune.png";
 

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { gql, useQuery } from "@apollo/client";
 import firstImage from "../../assets/img/carousel/first.jpg";
 import { MeetupPhoto, meetupPhotoSchema } from "../../models/MeetupPhoto";

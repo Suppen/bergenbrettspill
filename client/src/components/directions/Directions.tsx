@@ -1,4 +1,3 @@
-import React from "react";
 import map from "../../assets/img/directions.png";
 import vid from "../../assets/vid/directions.webm";
 import DefaultLayout from "../layouts/default";

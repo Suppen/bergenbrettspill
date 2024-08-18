@@ -1,12 +1,12 @@
 import React from "react";
-import * as dateFns from "date-fns";
+import { format } from "date-fns";
 import { MeetupEvent, meetupEventSchema } from "../../models/MeetupEvent";
 import { gql, useQuery } from "@apollo/client";
 import * as yup from "yup";
 
-interface EventsProps {
+type EventsProps = {
 	events: MeetupEvent[] | null;
-}
+};
 
 const Events = ({ events }: EventsProps) => (
 	<div className="events">
@@ -18,7 +18,7 @@ const Events = ({ events }: EventsProps) => (
 						<h3 className="card-title">{e.name}</h3>
 					</a>
 					<p>
-						<time dateTime={e.time.toISOString()}>{dateFns.format(e.time, "dd MMM HH:mm")}</time>
+						<time dateTime={e.time.toISOString()}>{format(e.time, "dd MMM HH:mm")}</time>
 					</p>
 					{e.rsvp !== null ? (
 						<p>

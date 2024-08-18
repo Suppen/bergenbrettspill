@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as ReactRouter, Route, Routes } from "react-router-dom";
 import { Frontpage } from "../frontpage";
 import { Games } from "../games";

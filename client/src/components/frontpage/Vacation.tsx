@@ -1,5 +1,3 @@
-import React from "react";
-
 const Vacation = (): JSX.Element => (
 	<div className="row mt-4">
 		<div className="col-12">
