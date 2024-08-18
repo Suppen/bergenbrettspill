@@ -1,9 +1,4 @@
 import { gql } from "apollo-server-express";
-import { filter, propEq, length, clamp } from "ramda";
-
-/*********************************
- * Make the schema and resolvers *
- *********************************/
 
 const typeDefs = gql`
 	type Query {
@@ -71,12 +66,12 @@ const resolvers = {
 		// A list of boardgames
 		boardgames: (_obj, _params, { apis }) => cachedFetchGames(apis.boardGameGeek.fetchGames),
 		// Count of boardgames
-		boardgameCount: (_obj, _params, { apis }) =>
-			cachedFetchGames(apis.boardGameGeek.fetchGames)
-				.then(filter(propEq("expands", null)))
-				.then(length),
+		boardgameCount: async (_obj, _params, { apis }) => {
+			const games = await cachedFetchGames(apis.boardGameGeek.fetchGames);
+			return games.filter(g => g.expands === null).length;
+		},
 		// Events
-		events: (_obj, { limit }, { apis }) => apis.meetup.events({ page: clamp(1, 20, limit) }),
+		events: (_obj, { limit }, { apis }) => apis.meetup.events({ page: Math.max(1, Math.min(20, limit)) }),
 		// Photos
 		photos: (_obj, _params, { apis }) => apis.meetup.photos()
 	}
