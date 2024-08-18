@@ -2,20 +2,8 @@
 	"server": {
 		"port": 3000
 	},
-	"dbs": {
-		"bergenbrettspillklubb": {
-			"database": null,
-			"username": null,
-			"password": null,
-			"config": {
-				"dialect": "sqlite",
-				"storage": "bbk.db"
-			}
-		}
-	},
 	"apis": {
 		"meetup": {
-			"apiKey": "veryverysecret",
 			"endpoints": {
 				"events": "https://api.meetup.com/Bergen-Brettspillklubb/events"
 			}

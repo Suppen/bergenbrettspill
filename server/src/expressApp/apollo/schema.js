@@ -1,9 +1,5 @@
 "use strict";
 
-/**************************
- * Import important stuff *
- **************************/
-
 const { gql } = require("apollo-server-express");
 const R = require("ramda");
 
@@ -66,7 +62,7 @@ const cachedFetchGames = fetchGames => {
 		return gamesCache.result;
 	}
 
-	gamesCache.expires = new Date(Date.now() + 10 * 60 * 1000);
+	gamesCache.expires = new Date(Date.now() + 60 * 60 * 1000);
 	gamesCache.result = fetchGames();
 
 	return cachedFetchGames(fetchGames);

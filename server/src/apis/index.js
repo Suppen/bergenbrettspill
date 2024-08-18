@@ -1,9 +1,5 @@
 "use strict";
 
-/**************************
- * Import important stuff *
- **************************/
-
 const setupMeetupAPI = require("./meetup");
 const setupBoardGameGeekAPI = require("./boardGameGeek");
 

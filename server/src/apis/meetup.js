@@ -1,10 +1,5 @@
 "use strict";
 
-/**************************
- * Import important stuff *
- **************************/
-
-const request = require("request-promise");
 const R = require("ramda");
 
 /***************************
@@ -13,12 +8,8 @@ const R = require("ramda");
 
 const setupMeetupAPI = settings => ({
 	events: queryParams =>
-		request({
-			uri: settings.apis.meetup.endpoints.events,
-			qs: queryParams
-		})
-			// Parse it as JSON
-			.then(JSON.parse)
+		fetch(`${settings.apis.meetup.endpoints.events}?${new URLSearchParams(queryParams).toString()}`)
+			.then(res => res.json())
 			// Convert the timestamp into a date object
 			.then(R.map(e => R.mergeAll([e, { time: new Date(Number.parseInt(e.time)).toISOString() }])))
 			// Convert rsvp data to an rsvp object
@@ -35,11 +26,8 @@ const setupMeetupAPI = settings => ({
 				throw new Error(err.message);
 			}),
 	photos: () =>
-		request({
-			uri: settings.apis.meetup.endpoints.photos
-		})
-			// Parse it as JSON
-			.then(JSON.parse)
+		fetch(settings.apis.meetup.endpoints.photos)
+			.then(res => res.json())
 			// Extract the photo URLs
 			.then(R.map(R.prop("photo_link")))
 });

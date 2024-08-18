@@ -1,9 +1,5 @@
 "use strict";
 
-/**************************
- * Import important stuff *
- **************************/
-
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schema");
 

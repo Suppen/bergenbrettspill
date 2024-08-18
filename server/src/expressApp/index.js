@@ -1,9 +1,5 @@
 "use strict";
 
-/**************************
- * Import important stuff *
- **************************/
-
 const express = require("express");
 const makeApolloServer = require("./apollo");
 
@@ -19,19 +15,16 @@ const makeApolloServer = require("./apollo");
  *
  * @returns {Object}	The express app
  */
-const setupExpressApp = (settings, apis) => {
+const setupExpressApp = async (settings, apis) => {
 	// Initialize the app object
 	const app = express();
 
 	// Add GraphQL to it
 	const apolloServer = makeApolloServer(settings, apis);
+	await apolloServer.start();
 	apolloServer.applyMiddleware({ app });
 
 	return app;
 };
-
-/*****************************
- * Export the setup function *
- *****************************/
 
 module.exports = setupExpressApp;
