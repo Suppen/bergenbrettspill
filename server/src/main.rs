@@ -8,13 +8,18 @@ use bbk_server::{
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let port = std::env::var("PORT")
+        .expect("No port provided. Set one with env var PORT")
+        .parse()
+        .expect("Invalid port");
+
     let db = match std::env::var("DB_PATH") {
         Ok(path) => {
             println!("Using database at {}", path);
             rusqlite::Connection::open(path).expect("Could not open database")
         }
         Err(_) => {
-            panic!("No database path provided. Quitting!");
+            panic!("No database path provided. Set one with DB_PATH");
         }
     };
 
@@ -23,13 +28,15 @@ async fn main() -> std::io::Result<()> {
     let shared_db = Arc::new(Mutex::new(db));
     let bgg_game_repository = Data::new(BGGGameRepository::new(shared_db));
 
+    println!("Starting server on port {}", port);
+
     HttpServer::new(move || {
         App::new()
             .app_data(bgg_game_repository.clone())
             .service(events)
             .service(games)
     })
-    .bind(("0.0.0.0", 3000))?
+    .bind(("0.0.0.0", port))?
     .run()
     .await?;
 
