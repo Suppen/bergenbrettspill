@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="nb">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bergen Brettspillklubb</title>
+	<link href="/css/index.css" rel="stylesheet">
+	<style>
+		.media {
+			display: grid;
+			grid-template-rows: 1fr 1fr;
+			grid-template-columns: 1fr;
+
+			gap: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		@media (min-width: 1132px) {
+			.media {
+				grid-template-rows: 1fr;
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+
+		.media * {
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<!--#include file="header.html"-->
+
+		<main>
+			<h2>Hvor er vi?</h2>
+
+			<p>Vi holder til i 2. etasje i Nordnes Bydelshus, ca. 5 minutter gangavstand fra Torgallmenningen.
+				Ta til venstre med en gang du kommer inn døren, gå opp trappen, og finn rommet som heter "Kursrom" på
+				høyre side.</p>
+
+			<div class="media">
+				<a target="_blank"
+					href="https://www.google.no/maps/dir/Byparken+light+rail+stop,+Starvhusgaten+4,+5014+Bergen/60.3948752,5.3156753/@60.3938184,5.3173961,17.5z"
+					rel="noopener noreferrer">
+					<img src="/img/directions.png" alt="Kart som viser veien fra bybanen">
+				</a>
+
+				<video class="location-video" preload="metadata" controls>
+					<source src="/vid/directions.webm">
+				</video>
+			</div>
+		</main>
+
+		<!--#include file="footer.html"-->
+
+	</div>
+</body>
+
+</html>

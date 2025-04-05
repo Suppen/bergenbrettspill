@@ -1,21 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Vi møtes hver onsdag på Nordnes Bydelshus mellom kl 17:30 og 23:00 for hyggelig samspill, med unntak av jul, påske og hele juli måned. Den første spillkvelden er gratis, deretter må man være medlem for å delta. Medlemskontingenten i klubben er 50 kroner per kalenderår. Våre arrangementer er rusfrie, og åpne for alle over 14 år."
-    />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <link rel="manifest" href="/manifest.json" />
-    <title>Bergen Brettspillklubb</title>
-  </head>
-  <body>
-    <noscript>Du må aktivere JavaScript for å se denne nettsiden</noscript>
-    <div id="root"></div>
-	<script type="module" src="/src/index.tsx"></script>
-  </body>
+<html lang="nb">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bergen Brettspillklubb</title>
+	<link href="/css/index.css" rel="stylesheet">
+	<style>
+		main {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		@media (min-width: 832px) {
+			main {
+				flex-direction: row;
+			}
+
+			main>:first-child {
+				flex: 2 1 0;
+			}
+
+			main>:last-child {
+				flex: 1 1 0;
+			}
+		}
+
+		/* Image Carousel */
+		.carousel {
+			position: relative;
+			overflow: hidden;
+		}
+
+		.carousel img {
+			width: 100%;
+			display: none;
+		}
+
+		.carousel img.active {
+			display: block;
+		}
+
+		.carousel-control {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			background: rgba(0, 0, 0, 0.5);
+			color: white;
+			border: none;
+			padding: 0.5rem 0.75rem;
+			cursor: pointer;
+			font-size: 1.5rem;
+		}
+
+		.carousel-control.prev {
+			left: 0.75rem;
+		}
+
+		.carousel-control.next {
+			right: 0.75rem;
+		}
+
+		/* Events Section */
+		.events {
+			background: #f8f8f8;
+			padding: 1rem;
+		}
+
+		.events h2 {
+			margin-top: 0;
+			text-align: center;
+			font-weight: bold;
+		}
+
+		.events ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		.events noscript a {
+			color: #007bff;
+			text-decoration: underline;
+		}
+
+		.events li {
+			background: white;
+			margin: 0.5rem 0;
+			padding: 0.75rem;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		}
+
+		.events a {
+			text-decoration: none;
+			color: black;
+		}
+
+		.events a:hover {
+			color: #007bff;
+		}
+
+		.events .error a {
+			color: #007bff;
+			text-decoration: underline;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<!--#include file="header.html"-->
+
+		<main>
+			<div>
+				<!-- Image Carousel -->
+				<div class="carousel">
+					<div class="carousel-inner">
+						<img src="/img/carousel/first.jpg" class="active" alt="">
+					</div>
+				</div>
+
+				<script type="module">
+					const carousel = document.querySelector(".carousel");
+
+					const imgs = [...document.querySelectorAll(".carousel-inner img")];
+					let currentImgIndex = 0;
+
+					const changeImg = newIndex => {
+						const activeIndex = newIndex % imgs.length;
+						for (let i = 0; i < imgs.length; i++) {
+							if (i === activeIndex) {
+								imgs[i].classList.add("active");
+							} else {
+								imgs[i].classList.remove("active");
+							}
+						}
+					}
+
+					const nextSlideBtn = document.createElement("button");
+					nextSlideBtn.classList.add("carousel-control", "next");
+					nextSlideBtn.innerHTML = "&#10095;";
+					nextSlideBtn.addEventListener("click", () => {
+						changeImg(++currentImgIndex);
+					});
+
+					const prevSlideBtn = document.createElement("button");
+					prevSlideBtn.classList.add("carousel-control", "prev");
+					prevSlideBtn.innerHTML = "&#10094;";
+					prevSlideBtn.addEventListener("click", () => {
+						changeImg(--currentImgIndex);
+					});
+
+					carousel.prepend(prevSlideBtn);
+					carousel.append(nextSlideBtn);
+
+
+				</script>
+
+				<!-- Main Text -->
+				<article>
+					<p>Vi møtes hver onsdag på <a href="/where.html">Nordnes Bydelshus</a> mellom kl 17:30 og 23:00 for
+						hyggelig samspill, med unntak av jul, påske og hele juli måned. Den første spillkvelden er
+						gratis, deretter må man <a href="/membership.html">være medlem</a> for å delta.
+						Medlemskontingenten i klubben er 50 kroner per kalenderår. Våre arrangementer er rusfrie, og
+						åpne for alle over 14 år.</p>
+					<p>Fra kl. 17:30 kan du spille småspill, mingle og stemme på hvilket hovedspill du vil spille.
+						Kl. 18:00 avsluttes avstemningen og spillerne fordeles på hovedspillene. Kommer du etter kl.
+						18:00 er du derfor ikke sikret å være med på et spill.</p>
+					<p>Ikke vær redd for å prøve noe du ikke har spilt før. Vi går alltid gjennom spillereglene
+						enten man er ny eller noen bare trenger en oppfriskning.</p>
+					<p>Klubben har <a id="games-count" href="/games.html">en mengde spill</a> selv, og det er fritt frem
+						for å ta med seg egne spill hjemmefra.</p>
+					<p>Det er også mulig å låne med seg et av klubben sine spill mellom spillkvelder, så lenge det
+						leveres tilbake ved neste spillkveld. Ta kontakt med et styremedlem for å avtale lån.</p>
+				</article>
+
+				<script type="module">
+					const gamesCount = document.getElementById("games-count");
+
+					try {
+						const res = await fetch("/api/games");
+						const games = await res.json();
+						const baseGames = games.filter(game => game.expands_ids.length === 0);
+
+						gamesCount.textContent = `${baseGames.length} spill`;
+					} catch (err) {
+						console.error(err);
+					}
+				</script>
+			</div>
+
+			<!-- Upcoming Events -->
+			<aside class="events">
+				<h2>Kommende hendelser</h2>
+				<noscript>
+					<p id="see-meetup">Se hendelseslisten vår på <a
+							href="https://www.meetup.com/bergen-brettspillklubb/events/?eventOrigin=event_home_page"
+							target="_blank" rel="noopener noreferrer">Meetup</a></p>
+					<p>Eller slå på JavaScript på denne siden for å se listen her.</p>
+				</noscript>
+
+				<ul id="event-list"></ul>
+
+				<template id="event-template">
+					<li>
+						<a href="" target="_blank" rel="noopener noreferrer">
+							<h3></h3>
+							<p><time datetime=""></time></p>
+						</a>
+					</li>
+				</template>
+
+				<script type="module">
+					const eventList = document.getElementById("event-list");
+					const eventTemplate = document.getElementById("event-template");
+
+					const dateFormatter = new Intl.DateTimeFormat(navigator.language, {
+						day: "numeric",
+						month: "short",
+						hour: "2-digit",
+						minute: "2-digit",
+						hour12: false
+					});
+
+					try {
+						const res = await fetch("/api/events");
+						const allEvts = await res.json();
+						const evts = allEvts.slice(0, 6);
+
+						for (const evt of evts) {
+							const time = new Date(evt.time);
+
+							const li = eventTemplate.content.cloneNode(true);
+							li.querySelector("h3").textContent = evt.name;
+							li.querySelector("time").setAttribute("datetime", time.toISOString());
+							li.querySelector("time").textContent = dateFormatter.format(time);
+							li.querySelector("a").setAttribute("href", evt.link);
+
+							eventList.append(li);
+						}
+					} catch (err) {
+						console.error(err);
+
+						const p = eventList.parentNode;
+						p.removeChild(eventList);
+
+						const errElem = document.createElement("p");
+						errElem.innerHTML = `Kunne ikke hente hendelser. <a
+							href="https://www.meetup.com/bergen-brettspillklubb/events/?eventOrigin=event_home_page"
+							target="_blank" rel="noopener noreferrer">Prøv Meetup-siden vår</a>`;
+						errElem.classList.add("error");
+
+						p.append(errElem);
+					}
+				</script>
+			</aside>
+		</main>
+
+		<!--#include file="footer.html"-->
+
+	</div>
+
+</body>
+
 </html>

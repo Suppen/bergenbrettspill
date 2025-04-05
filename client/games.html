@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="nb">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bergen Brettspillklubb</title>
+	<link href="/css/index.css" rel="stylesheet">
+	<style>
+		/* Game Table */
+		.game-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 1rem;
+		}
+
+		.game-table th,
+		.game-table td {
+			padding: 0.5rem;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.game-table th {
+			background: #f4f4f4;
+		}
+
+		.game-table img {
+			max-width: 6.25rem;
+		}
+
+		.bgg-acknowledgement img {
+			max-width: 12rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<!--#include file="header.html"-->
+
+		<main>
+			<h2>Klubbens spill</h2>
+
+			<table class="game-table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Tittel</th>
+						<th>Spillere</th>
+						<th>Spilletid</th>
+						<th>Mekanikker</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<noscript>
+				<p>Slå på JavaScript i nettleseren for å vise spillisten.</p>
+				<p>Eller se <a href="https://boardgamegeek.com/collection/user/bergenbrettspill" target="_blank"
+						rel="noopener noreferrer">profilen vår på BoardGameGeek</a>.</p>
+			</noscript>
+
+			<template id="game-template">
+				<tr>
+					<td>
+						<a href="" target="_blank" rel="noopener noreferrer">
+							<img src="" alt="">
+						</a>
+					</td>
+					<td>
+						<p><a href="" target="_blank" rel="noopener noreferrer"></a></p>
+						<ul></ul>
+					</td>
+					<td></td>
+					<td></td>
+					<td>
+						<ul></ul>
+					</td>
+				</tr>
+			</template>
+
+			<script type="module">
+				const tbody = document.querySelector(".game-table tbody");
+				const gameTemplate = document.getElementById("game-template");
+
+				try {
+					const res = await fetch("/api/games");
+					const games = await res.json();
+
+					games.sort((a, b) => a.title.localeCompare(b.title));
+
+					const baseGames = games.filter(game => game.expands_ids.length === 0);
+
+					for (const game of baseGames) {
+						const expansions = games.filter(g => g.expands_ids.includes(game.id));
+
+						const row = gameTemplate.content.cloneNode(true).querySelector("tr");
+
+						const [thumb, title, players, time, mechanics] = [...row.children];
+
+						thumb.querySelector("a").href = game.bgg_url;
+						thumb.querySelector("img").src = game.thumbnail_url;
+						thumb.querySelector("img").setAttribute("alt", game.title);
+
+						title.querySelector("a").href = game.bgg_url;
+						title.querySelector("a").textContent = game.title;
+
+						const expansionsList = title.querySelector("ul");
+						for (const expansion of expansions) {
+							const li = document.createElement("li");
+
+							li.innerHTML = `<a href="${expansion.bgg_url}" target="_blank" rel="noopener noreferrer">${expansion.title}</a>`;
+
+							expansionsList.append(li);
+						}
+
+						players.textContent = `${game.players_min} - ${game.players_max}`;
+
+						time.textContent = `${game.playtime_avg} min`;
+
+						const mechanicsList = mechanics.querySelector("ul");
+						for (const mechanic of game.mechanics) {
+							const li = document.createElement("li");
+							li.textContent = mechanic;
+							mechanicsList.append(li);
+						}
+
+						tbody.append(row);
+					}
+				} catch (err) {
+					console.error(err);
+
+					alert("Kunne ikke hente spilllisten.");
+				}
+			</script>
+
+			<!-- Acknowledgement -->
+			<div class="bgg-acknowledgement">
+				<img src="https://cf.geekdo-images.com/HZy35cmzmmyV9BarSuk6ug__thumb/img/gbE7sulIurZE_Tx8EQJXnZSKI6w=/fit-in/200x150/filters:strip_icc()/pic7779581.png"
+					alt="BoardGameGeek">
+				<p>Data hentet fra <a href="https://boardgamegeek.com/collection/user/bergenbrettspill" target="_blank"
+						rel="noopener noreferrer">profilen vår</a> på <a href="https://boardgamegeek.com"
+						target="_blank" rel="noopener noreferrer">BoardGameGeek</a></p>
+			</div>
+		</main>
+
+		<!--#include file="footer.html"-->
+
+	</div>
+
+</body>
+
+</html>

@@ -3,12 +3,12 @@ use std::sync::{Arc, Mutex};
 use actix_web::{get, web::Data, App, HttpResponse, HttpServer, Responder};
 use bbk_server::{
     bgg_game::get_bgg_games, bgg_game_repository::BGGGameRepository, db::setup_db,
-    meetup::get_events,
+    meetup::events::get_events,
 };
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let db = match std::env::var("BBK_DB_PATH") {
+    let db = match std::env::var("DB_PATH") {
         Ok(path) => {
             println!("Using database at {}", path);
             rusqlite::Connection::open(path).expect("Could not open database")

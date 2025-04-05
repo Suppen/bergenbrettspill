@@ -1,0 +1,16 @@
+query Events($urlname: String!) {
+  groupByUrlname(urlname: $urlname) {
+    events(sort: ASC) {
+      edges {
+        node {
+          id
+          title
+          eventUrl
+          dateTime
+          maxTickets
+        }
+      }
+    }
+  }
+}
+

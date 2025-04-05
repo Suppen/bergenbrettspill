@@ -8,6 +8,11 @@ use rusqlite::{params, params_from_iter, Connection};
 
 use crate::bgg_game::BGGGame;
 
+/// Get the current unix timestamp in seconds
+fn unix_timestamp() -> i64 {
+    chrono::Utc::now().timestamp()
+}
+
 pub struct BGGGameRepository {
     db: Arc<Mutex<Connection>>,
 }
@@ -24,8 +29,8 @@ impl BGGGameRepository {
 
         // Upsert the game itself
         tx.execute(
-         "INSERT OR REPLACE INTO bgg_games (id, thumbnail_url, bgg_url, title, players_min, players_max, playtime_avg, playtime_min, playtime_max) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-         params![game.id, game.thumbnail_url, game.bgg_url, game.title, game.players_min, game.players_max, game.playtime_avg, game.playtime_min, game.playtime_max])?;
+         "INSERT OR REPLACE INTO bgg_games (id, thumbnail_url, bgg_url, title, players_min, players_max, playtime_avg, playtime_min, playtime_max, updated_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+         params![game.id, game.thumbnail_url, game.bgg_url, game.title, game.players_min, game.players_max, game.playtime_avg, game.playtime_min, game.playtime_max, unix_timestamp()])?;
 
         // Upsert the expands list
         tx.execute(
@@ -125,5 +130,48 @@ impl BGGGameRepository {
         }
 
         Ok(games)
+    }
+
+    /// Get the IDs of all games that have not been updated in the last `max_age` seconds
+    ///
+    /// # Arguments
+    /// * `max_age` - The maximum age of a game in seconds
+    ///
+    /// # Returns
+    /// A list of game IDs
+    pub fn get_ids_of_stale(&self, max_age: i64) -> Result<HashSet<u64>> {
+        let connection = self.db.lock().unwrap();
+
+        let stale_timestamp = unix_timestamp() - max_age;
+
+        let mut stmt = connection.prepare("SELECT id FROM bgg_games WHERE updated_time < ?")?;
+
+        let id_iter = stmt.query_map(params![stale_timestamp], |row| row.get::<_, u64>(0))?;
+
+        let mut stale_ids = HashSet::new();
+        for id in id_iter {
+            stale_ids.insert(id?);
+        }
+
+        Ok(stale_ids)
+    }
+
+    /// Get the IDs of all games in the database
+    ///
+    /// # Returns
+    /// A set of IDs of all games in the database
+    pub fn get_ids(&self) -> Result<HashSet<u64>> {
+        let connection = self.db.lock().unwrap();
+
+        let mut stmt = connection.prepare("SELECT id FROM bgg_games")?;
+
+        let id_iter = stmt.query_map(params![], |row| row.get::<_, u64>(0))?;
+
+        let mut ids = HashSet::new();
+        for id in id_iter {
+            ids.insert(id?);
+        }
+
+        Ok(ids)
     }
 }

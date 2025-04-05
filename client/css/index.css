@@ -1,0 +1,168 @@
+:root {
+	font-size: 16px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-image: url("/img/background.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-attachment: fixed;
+	background-color: #f8f8f8;
+}
+
+.icon {
+	height: 1em;
+	vertical-align: middle;
+}
+
+.container {
+	max-width: 1200px;
+	min-height: 100vh;
+	margin: 0 auto;
+	padding: 0 1rem 0 1rem;
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+}
+
+/**********
+ * Header *
+ **********/
+
+header {
+	margin-bottom: 1rem;
+}
+
+/* Logo */
+.logo-container {
+	display: flex;
+	align-items: center;
+}
+
+.logo {
+	max-height: 10rem;
+	max-width: 100%;
+}
+
+/* Navigation */
+nav {
+	position: relative;
+}
+
+.nav-menu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	gap: 1rem;
+	z-index: 1000000;
+}
+
+.nav-item {
+	position: relative;
+}
+
+.nav-link {
+	text-decoration: none;
+	color: #333;
+	padding: 10px;
+	display: block;
+}
+
+.nav-link:hover {
+	color: #007bff;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background: white;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	z-index: 1000000;
+}
+
+.dropdown-menu .dropdown-item {
+	padding: 10px;
+	white-space: nowrap;
+	text-decoration: none;
+	display: block;
+	color: #333;
+}
+
+.dropdown-menu .dropdown-item:hover {
+	background: #007bff;
+	color: white;
+}
+
+/* Show dropdown on hover */
+.nav-item:hover .dropdown-menu {
+	display: block;
+}
+
+/* Mobile Navigation */
+.nav-toggle {
+	display: none;
+	background: none;
+	border: solid lightgray 1px;
+	border-radius: 0.5rem;
+	font-size: 24px;
+	cursor: pointer;
+	padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 768px) {
+	.nav-menu {
+		display: none;
+		flex-direction: column;
+		position: absolute;
+		top: 50px;
+		right: 20px;
+		background: white;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		width: 200px;
+		padding: 10px;
+	}
+
+	.nav-menu.active {
+		display: flex;
+	}
+
+	.nav-toggle {
+		display: block;
+	}
+}
+
+/**********
+ * Footer *
+ **********/
+
+footer {
+	background-color: #ced4da;
+	padding: 0.5rem;
+	margin: 0 -1rem;
+	margin-top: auto;
+}
+
+footer p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.support {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.support img {
+	background-color: white;
+	height: 5rem;
+}

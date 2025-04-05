@@ -12,7 +12,8 @@ pub fn setup_db(connection: &Connection) -> Result<()> {
         players_max INTEGER NOT NULL,
         playtime_avg INTEGER NOT NULL,
         playtime_min INTEGER NOT NULL,
-        playtime_max INTEGER NOT NULL
+        playtime_max INTEGER NOT NULL,
+        updated_time DATETIME NOT NULL
     )",
         params![],
     )?;

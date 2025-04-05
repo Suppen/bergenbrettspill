@@ -6,7 +6,4 @@ pub struct Event {
     pub name: String,
     pub time: DateTime<Utc>,
     pub link: String,
-    pub attendee_count: u8,
-    pub waitlist_count: u8,
-    pub attendee_limit: Option<u8>,
 }

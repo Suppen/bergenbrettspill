@@ -43,7 +43,7 @@ fn attributes_to_map(attributes: Attributes) -> HashMap<QName, String> {
         .collect()
 }
 
-async fn get_bgg_game_ids() -> Result<HashSet<u64>> {
+pub async fn get_bgg_game_ids() -> Result<HashSet<u64>> {
     let xml = reqwest::get(
         "https://boardgamegeek.com/xmlapi2/collection?username=bergenbrettspill&own=1",
     )
@@ -87,12 +87,23 @@ pub async fn get_bgg_games(bgg_game_repository: &BGGGameRepository) -> Result<Ve
         Err(err) => eprintln!("Error pruning games: {}", err),
     }
 
+    let stale_ids = bgg_game_repository.get_ids_of_stale(60 * 60 * 24 * 7)?;
+    let existing_ids = bgg_game_repository.get_ids()?;
+    let nonexisting_ids = game_ids
+        .difference(&existing_ids)
+        .copied()
+        .collect::<HashSet<_>>();
+    let ids_to_fetch = stale_ids
+        .union(&nonexisting_ids)
+        .copied()
+        .collect::<Vec<_>>();
+
     // BoardGameGeek limits this request to 20 results. Batch them
     const BATCH_SIZE: usize = 20;
 
     let mut games = Vec::with_capacity(game_ids.len());
 
-    for ids in game_ids
+    for ids in ids_to_fetch
         .iter()
         .map(u64::to_string)
         .collect::<Vec<_>>()
