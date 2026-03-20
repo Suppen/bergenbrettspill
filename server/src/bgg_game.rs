@@ -10,6 +10,8 @@ use serde::Serialize;
 
 use crate::bgg_game_repository::BGGGameRepository;
 
+
+
 #[derive(Serialize, Builder, PartialEq, Eq, Debug, Clone)]
 pub struct BGGGame {
     pub id: u64,
@@ -43,13 +45,16 @@ fn attributes_to_map(attributes: Attributes) -> HashMap<QName, String> {
         .collect()
 }
 
-pub async fn get_bgg_game_ids() -> Result<HashSet<u64>> {
-    let xml = reqwest::get(
-        "https://boardgamegeek.com/xmlapi2/collection?username=bergenbrettspill&own=1",
-    )
-    .await?
-    .text()
-    .await?;
+pub async fn get_bgg_game_ids(token: &str) -> Result<HashSet<u64>> {
+    let client = reqwest::Client::new();
+    
+    let xml = client
+        .get("https://boardgamegeek.com/xmlapi2/collection?username=bergenbrettspill&own=1")
+        .header("Authorization", format!("Bearer {}", token))
+        .send()
+        .await?
+        .text()
+        .await?;
 
     let mut game_ids = HashSet::new();
 
@@ -79,8 +84,8 @@ pub async fn get_bgg_game_ids() -> Result<HashSet<u64>> {
     Ok(game_ids)
 }
 
-pub async fn get_bgg_games(bgg_game_repository: &BGGGameRepository) -> Result<Vec<BGGGame>> {
-    let game_ids = get_bgg_game_ids().await?;
+pub async fn get_bgg_games(bgg_game_repository: &BGGGameRepository, token: &str) -> Result<Vec<BGGGame>> {
+    let game_ids = get_bgg_game_ids(token).await?;
 
     match bgg_game_repository.prune(&game_ids) {
         Ok(_) => (),
@@ -103,6 +108,8 @@ pub async fn get_bgg_games(bgg_game_repository: &BGGGameRepository) -> Result<Ve
 
     let mut games = Vec::with_capacity(game_ids.len());
 
+    let client = reqwest::Client::new();
+    
     for ids in ids_to_fetch
         .iter()
         .map(u64::to_string)
@@ -114,7 +121,13 @@ pub async fn get_bgg_games(bgg_game_repository: &BGGGameRepository) -> Result<Ve
             ids.join(",")
         );
 
-        let xml = reqwest::get(url).await?.text().await?;
+        let xml = client
+            .get(&url)
+            .header("Authorization", format!("Bearer {}", token))
+            .send()
+            .await?
+            .text()
+            .await?;
 
         match parse_bgg_games(&xml) {
             Ok(batch) => games.extend(batch),
