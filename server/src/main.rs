@@ -9,6 +9,7 @@ use bbk_server::{
 // Struct to hold the BGG token and game repository
 struct AppState {
     bgg_token: String,
+    bgg_game_list_username: String,
     bgg_game_repository: BGGGameRepository,
 }
 
@@ -20,6 +21,8 @@ async fn main() -> std::io::Result<()> {
         .expect("Invalid port");
 
     let bgg_token = std::env::var("BGG_TOKEN").expect("No BGG_TOKEN provided");
+    let bgg_game_list_username =
+        std::env::var("BGG_GAME_LIST_USERNAME").expect("No BGG_GAME_LIST_USERNAME provided");
 
     let db = match std::env::var("DB_PATH") {
         Ok(path) => {
@@ -37,6 +40,7 @@ async fn main() -> std::io::Result<()> {
 
     // Create app state with the BGG token and game repository
     let app_state = Data::new(AppState {
+        bgg_game_list_username,
         bgg_token,
         bgg_game_repository: BGGGameRepository::new(shared_db),
     });
@@ -74,7 +78,13 @@ async fn photos() -> impl Responder {
 
 #[get("/games")]
 async fn games(app_state: Data<AppState>) -> impl Responder {
-    match get_bgg_games(&app_state.bgg_game_repository, &app_state.bgg_token).await {
+    match get_bgg_games(
+        &app_state.bgg_game_repository,
+        &app_state.bgg_game_list_username,
+        &app_state.bgg_token,
+    )
+    .await
+    {
         Ok(games) => HttpResponse::Ok().json(games),
         Err(err) => {
             println!("Error: {}", err);

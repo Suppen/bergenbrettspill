@@ -10,8 +10,6 @@ use serde::Serialize;
 
 use crate::bgg_game_repository::BGGGameRepository;
 
-
-
 #[derive(Serialize, Builder, PartialEq, Eq, Debug, Clone)]
 pub struct BGGGame {
     pub id: u64,
@@ -45,12 +43,14 @@ fn attributes_to_map(attributes: Attributes) -> HashMap<QName, String> {
         .collect()
 }
 
-pub async fn get_bgg_game_ids(token: &str) -> Result<HashSet<u64>> {
+pub async fn get_bgg_game_ids(username: &str, token: &str) -> Result<HashSet<u64>> {
     let client = reqwest::Client::new();
-    
+
     let xml = client
-        .get("https://boardgamegeek.com/xmlapi2/collection?username=bergenbrettspill&own=1")
-        .header("Authorization", format!("Bearer {}", token))
+        .get(format!(
+            "https://boardgamegeek.com/xmlapi2/collection?username={username}&own=1"
+        ))
+        .header("Authorization", format!("Bearer {token}"))
         .send()
         .await?
         .text()
@@ -84,8 +84,12 @@ pub async fn get_bgg_game_ids(token: &str) -> Result<HashSet<u64>> {
     Ok(game_ids)
 }
 
-pub async fn get_bgg_games(bgg_game_repository: &BGGGameRepository, token: &str) -> Result<Vec<BGGGame>> {
-    let game_ids = get_bgg_game_ids(token).await?;
+pub async fn get_bgg_games(
+    bgg_game_repository: &BGGGameRepository,
+    username: &str,
+    token: &str,
+) -> Result<Vec<BGGGame>> {
+    let game_ids = get_bgg_game_ids(username, token).await?;
 
     match bgg_game_repository.prune(&game_ids) {
         Ok(_) => (),
@@ -109,7 +113,7 @@ pub async fn get_bgg_games(bgg_game_repository: &BGGGameRepository, token: &str)
     let mut games = Vec::with_capacity(game_ids.len());
 
     let client = reqwest::Client::new();
-    
+
     for ids in ids_to_fetch
         .iter()
         .map(u64::to_string)
