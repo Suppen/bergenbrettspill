@@ -4,15 +4,18 @@ services:
   frontend:
     build: ./client
     ports:
-      - "80:80"
+      - "80:3000"
     depends_on:
       - backend
     restart: unless-stopped
+    environment:
+      BACKEND_URL: http://backend:3000
+      STEM_REDIRECT_URL: <Set to the URL of whatever voting form is currently active>
 
   backend:
     build: ./server
     expose:
-      - "3000"
+      - "3000:3001"
     volumes:
       # The only file in `/data` is the database file. The DB is just a cache, so it's not really necessary to persist
       # it outside of the container.
@@ -21,3 +24,4 @@ services:
     environment:
       - PORT=3000
       - DB_PATH=/data/bbk.db
+      - BGG_GAME_LIST_USERNAME=bergenbrettspill
