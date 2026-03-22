@@ -21,12 +21,16 @@ FROM debian:bookworm-slim
 
 RUN apt-get update && apt-get install -y libsqlite3-dev ca-certificates && rm -rf /var/lib/apt/lists/*
 
+RUN useradd -r -s /bin/false appuser
+
 COPY --from=builder /app/target/release/bbk-server /usr/local/bin/bbk-server
-RUN mkdir /data
+RUN mkdir /data && chown appuser:appuser /data
 
 ENV PORT=3000
 ENV DB_PATH=/data/bbk.db
 
 EXPOSE 3000
+
+USER appuser
 
 CMD ["bbk-server"]
