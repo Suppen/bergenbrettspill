@@ -2,60 +2,16 @@
 
 This directory contains the mostly static frontend for the Bergen Brettspillklubb website.
 
-## Structure
+## Configuration
 
-```
-client/
-├── src/                  # Source files (HTML, CSS, JS, images)
-│   ├── index.html        # Main page
-│   ├── games.html        # Games listing
-│   ├── events.html       # Events page
-│   ├── membership.html   # Membership info
-│   ├── css/              # Stylesheets
-│   ├── js/               # JavaScript files
-│   └── images/           # Image assets
-│
-├── Dockerfile           # Container build configuration
-├── nginx.conf            # Nginx configuration (with SSI and API proxy)
-└── README.md             # This file
-```
-
-## Development
-
-### Prerequisites
-
-- Docker
-- Docker Compose
-
-### Running Locally
-
-1. **Build and start the containers:**
-
-   ```bash
-   docker-compose up --build
-   ```
-
-2. **Access the site:**
-   - Frontend: http://localhost
-   - API endpoints are proxied to the backend automatically
-
-### Configuration
+No local development environment is currently set up.
 
 The frontend uses environment variables for configuration:
 
-| Variable            | Default    | Description                                                                                 |
-| ------------------- | ---------- | ------------------------------------------------------------------------------------------- |
-| `STEM_REDIRECT_URL` | (required) | URL to redirect `/stem` requests to, to easily change which voting form is currently active |
-| `BACKEND_URL`       | (required) | URL to the backend service. Requests to `/api/` will be proxied to this URL                 |
-
-Set these in your `docker-compose.yml`:
-
-```yaml
-frontend:
-  environment:
-    - STEM_REDIRECT_URL=https://your-target-url.com
-    - BACKEND_URL=http://backend:3000
-```
+| Variable            | Description                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `VOTE_REDIRECT_URL` | URL to redirect `/stem` requests to, to easily change which voting form is currently active |
+| `BACKEND_URL`       | URL to the backend service. Requests to `/api/` will be proxied to this URL                 |
 
 ## Nginx Configuration
 
@@ -82,7 +38,7 @@ The GitHub Actions workflow automatically builds and pushes the Docker image to 
 To build manually:
 
 ```bash
-docker build -t ghcr.io/your-repo/frontend:latest .
+docker build -t ghcr.io/suppen/bergenbrettspill-frontend:main .
 ```
 
 ## Deployment

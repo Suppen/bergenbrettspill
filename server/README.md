@@ -35,62 +35,22 @@ server/
 
 - `GET /photos` - Placeholder endpoint (returns 501 Not Implemented)
 
-## Development
+## Configuration
 
-### Prerequisites
-
-- Rust 1.93+
-- Docker (for containerized development)
-- SQLite (for local database)
-
-### Running Locally
-
-#### Without Docker
-
-```bash
-# Install dependencies
-cargo build
-
-# Run the server
-cargo run
-
-# Server will be available at http://localhost:3000
-```
-
-#### With Docker
-
-```bash
-# Build and run
-docker build -t bbk-server .
-docker run -p 3000:3000 -v ./data:/data bbk-server
-```
-
-### Configuration
+No local development environment is currently set up.
 
 **Required environment variables:**
 
 | Variable                 | Description                                                              |
 | ------------------------ | ------------------------------------------------------------------------ |
-| `PORT`                   | Port to listen on (default: 3000)                                        |
+| `PORT`                   | Port to listen on                                                        |
 | `DB_PATH`                | SQLite database path (e.g., `/data/bbk.db`)                              |
 | `BGG_TOKEN`              | BoardGameGeek API token. See https://boardgamegeek.com/using_the_xml_api |
 | `BGG_GAME_LIST_USERNAME` | BGG username to get the game collection for (only owned games)           |
 
-Example `.env` file:
-
-```
-PORT=3000
-DB_PATH=/data/bbk.db
-BGG_TOKEN=your_bgg_api_token
-BGG_GAME_LIST_USERNAME=your_bgg_username
-```
-
 ## Database
 
-Uses SQLite for caching BoardGameGeek data. The database is automatically initialized at:
-
-- `/data/bbk.db` (in container)
-- `./data/bbk.db` (local volume mount)
+Uses SQLite for caching BoardGameGeek data. The database is automatically initialized on first run at the path set by `DB_PATH` (typically `/data/bbk.db` in the container).
 
 ### Schema
 
@@ -107,9 +67,7 @@ Tables:
 The backend is designed to work with the frontend service. Use the root `docker-compose.yml`:
 
 ```bash
-# Start both services
-docker-compose up --build
-
+docker-compose up
 # Backend will be available at http://backend:3000 (internal)
 # Frontend proxies API requests automatically
 ```
@@ -117,14 +75,15 @@ docker-compose up --build
 ### Standalone
 
 ```bash
-# Build and run
-docker build -t ghcr.io/your-repo/backend:latest .
+docker build -t ghcr.io/suppen/bergenbrettspill-backend:main .
 docker run \
   -p 3000:3000 \
   -v ./data:/data \
+  -e PORT=3000 \
+  -e DB_PATH=/data/bbk.db \
   -e BGG_TOKEN=your_token \
   -e BGG_GAME_LIST_USERNAME=your_username \
-  ghcr.io/your-repo/backend:latest
+  ghcr.io/suppen/bergenbrettspill-backend:main
 ```
 
 ## External APIs
@@ -173,5 +132,5 @@ The GitHub Actions workflow automatically builds and pushes the Docker image to 
 Manual build:
 
 ```bash
-docker build -t ghcr.io/your-repo/backend:latest .
+docker build -t ghcr.io/suppen/bergenbrettspill-backend:main .
 ```

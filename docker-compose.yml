@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
     environment:
       BACKEND_URL: ${BACKEND_URL}
-      STEM_REDIRECT_URL: ${STEM_REDIRECT_URL}
+      VOTE_REDIRECT_URL: ${VOTE_REDIRECT_URL}
 
   backend:
     image: ghcr.io/suppen/bergenbrettspill-backend:main

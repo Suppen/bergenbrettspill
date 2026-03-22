@@ -26,7 +26,7 @@ See `client/README.md` and `server/README.md` for details on each service.
 Create a `.env` file in the root directory with the required environment variables (see **Configuration** below), then:
 
 ```bash
-docker-compose up --build
+docker-compose up
 ```
 
 - **Frontend**: http://localhost:3000
@@ -40,7 +40,7 @@ The following environment variables must be provided, either in a `.env` file or
 | ------------------------ | -------- | ---------------------------------------------------------------- |
 | `BGG_TOKEN`              | backend  | **SECRET** BoardGameGeek API token                               |
 | `BGG_GAME_LIST_USERNAME` | backend  | BGG username whose owned game collection to display              |
-| `STEM_REDIRECT_URL`      | frontend | URL that `/stem` redirects to (for configurable voting forms)    |
+| `VOTE_REDIRECT_URL`      | frontend | URL that `/stem` redirects to (for configurable voting forms)    |
 | `BACKEND_URL`            | frontend | Internal URL of the backend service (e.g. `http://backend:3000`) |
 
 ## Architecture
