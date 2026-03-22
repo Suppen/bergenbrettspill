@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build: ./server
+    expose:
+      - "3000"
+    volumes:
+      # The only file in `/data` is the database file. The DB is just a cache, so it's not really necessary to persist
+      # it outside of the container.
+      #- ./data:/data
+    restart: unless-stopped
+    environment:
+      - PORT=3000
+      - DB_PATH=/data/bbk.db
