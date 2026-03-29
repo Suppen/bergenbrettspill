@@ -4,8 +4,6 @@ This directory contains the mostly static frontend for the Bergen Brettspillklub
 
 ## Configuration
 
-No local development environment is currently set up.
-
 The frontend uses environment variables for configuration:
 
 | Variable            | Description                                                                                 |

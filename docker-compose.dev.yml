@@ -1,0 +1,49 @@
+services:
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: bergenbrettspill-frontend-dev
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    volumes:
+      - ./client/src:/usr/share/nginx/html
+      - ./client/nginx.conf:/etc/nginx/templates/default.conf.template
+    environment:
+      BACKEND_URL: ${BACKEND_URL:-http://backend:3000}
+      VOTE_REDIRECT_URL: ${VOTE_REDIRECT_URL:-https://example.com}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - dev-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    container_name: bergenbrettspill-backend-dev
+    volumes:
+      - ./server:/app
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/app/target
+    environment:
+      BGG_GAME_LIST_USERNAME: ${BGG_GAME_LIST_USERNAME}
+      BGG_TOKEN: ${BGG_TOKEN}
+      PORT: 3000
+      DB_PATH: /data/bbk.db
+      RUST_BACKTRACE: 1
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-3001}:3000"
+    networks:
+      - dev-network
+    command: sh -c "cargo watch -x run"
+
+volumes:
+  cargo-cache:
+  target-cache:
+
+networks:
+  dev-network:
+    driver: bridge

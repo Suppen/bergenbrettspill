@@ -7,10 +7,11 @@ HTML frontend and Rust backend, containerized with Docker.
 
 ```
 /
-├── client/              # Static frontend (HTML, CSS, JS served by nginx)
-├── server/              # Rust backend API
-├── docker-compose.yml   # Orchestration for both services
-└── .github/workflows/   # GitHub Actions CI/CD
+├── client/                # Static frontend (HTML, CSS, JS served by nginx)
+├── server/                # Rust backend API
+├── docker-compose.dev.yml # Orchestration for both services for development
+├── docker-compose.yml     # Orchestration for both services for production
+└── .github/workflows/     # GitHub Actions CI/CD
 ```
 
 See `client/README.md` and `server/README.md` for details on each service.
@@ -21,16 +22,38 @@ See `client/README.md` and `server/README.md` for details on each service.
 
 - Docker and Docker Compose
 
-### Running Locally
+### Running in Development
 
-Create a `.env` file in the root directory with the required environment variables (see **Configuration** below), then:
+Copy the `.env.example` file to `.env`, and fill in the required environment variables (see
+[**Configuration**](#configuration) below).
+
+For development with auto-recompilation:
 
 ```bash
-docker-compose up
+docker compose -f docker-compose.dev.yml up
 ```
 
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:3000 (internal, proxied through frontend at `/api/`)
+The first run will build the images automatically — this takes a while. Subsequent runs reuse the existing images and start quickly. If you change a `Dockerfile`, add `--build` to force a rebuild.
+
+**Development setup includes:**
+
+- Auto-recompilation for Rust backend using cargo-watch
+- The website available at http://localhost:3000
+- Separate backend port at http://localhost:3001
+
+**Note**: Frontend is mostly plain HTML. There's no fancy schmancy frontend framework like Vite, so frontend has no hot
+reloading. Reach for your F5 key like in the good old days.
+
+### Running in Production
+
+Create a `.env` file in the root directory with the required environment variables (see
+[**Configuration**](#configuration) below), then:
+
+```bash
+docker compose up
+```
+
+The website is then available at http://localhost:3000. The backend is proxied through http://localhost:3000/api
 
 ## Configuration
 
@@ -43,6 +66,14 @@ The following environment variables must be provided, either in a `.env` file or
 | `VOTE_REDIRECT_URL`      | frontend | URL that `/stem` redirects to (for configurable voting forms)    |
 | `BACKEND_URL`            | frontend | Internal URL of the backend service (e.g. `http://backend:3000`) |
 
+**Development Note**: For development, you can use `.env.example` as a template:
+
+```bash
+cp .env.example .env
+```
+
+Then edit the `.env` file with your actual credentials.
+
 ## Architecture
 
 ```
@@ -53,12 +84,26 @@ Client → Frontend (nginx:80) → static files
 - **Frontend**: Static HTML/CSS/JS with nginx. Uses Server Side Includes (SSI) for HTML composition.
 - **Backend**: Rust with Actix-web. Fetches data from BoardGameGeek and Meetup.com, caches in SQLite.
 
-## Updating
+## Development Workflow
+
+### Making Changes
+
+**Frontend**: Edit files in `./client/src/` - changes are reflected immediately thanks to volume mounts.
+
+**Backend**: Edit files in `./server/src/` - cargo-watch automatically detects changes and recompiles.
+
+### Updating
 
 ```bash
 git pull origin main
-docker-compose down && docker-compose up --build -d
+docker compose down && docker compose up --build -d
 ```
+
+### Troubleshooting
+
+- **Rust compilation issues**: `docker logs bergenbrettspill-backend-dev`
+- **Clear cargo cache**: `docker compose -f docker-compose.dev.yml down -v`
+- **Rebuild dev images**: `docker compose -f docker-compose.dev.yml up --build`
 
 ## CI/CD
 

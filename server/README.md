@@ -37,8 +37,6 @@ server/
 
 ## Configuration
 
-No local development environment is currently set up.
-
 **Required environment variables:**
 
 | Variable                 | Description                                                              |
@@ -67,7 +65,7 @@ Tables:
 The backend is designed to work with the frontend service. Use the root `docker-compose.yml`:
 
 ```bash
-docker-compose up
+docker compose up
 # Backend will be available at http://backend:3000 (internal)
 # Frontend proxies API requests automatically
 ```
