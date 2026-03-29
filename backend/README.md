@@ -5,7 +5,7 @@ REST API backend for the Bergen Brettspillklubb website, built with Rust and Act
 ## Structure
 
 ```
-server/
+backend/
 ├── src/                  # Rust source code
 │   ├── main.rs           # Entry point and route definitions
 │   ├── lib.rs            # Library root

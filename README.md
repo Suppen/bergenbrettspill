@@ -7,14 +7,14 @@ HTML frontend and Rust backend, containerized with Docker.
 
 ```
 /
-├── client/                # Static frontend (HTML, CSS, JS served by nginx)
-├── server/                # Rust backend API
+├── frontend/              # Mostly static frontend (HTML, CSS, JS served by nginx)
+├── backend/               # Rust backend API
 ├── docker-compose.dev.yml # Orchestration for both services for development
 ├── docker-compose.yml     # Orchestration for both services for production
 └── .github/workflows/     # GitHub Actions CI/CD
 ```
 
-See `client/README.md` and `server/README.md` for details on each service.
+See `frontend/README.md` and `backend/README.md` for details on each service.
 
 ## Quick Start
 
@@ -88,9 +88,9 @@ Client → Frontend (nginx:80) → static files
 
 ### Making Changes
 
-**Frontend**: Edit files in `./client/src/` - changes are reflected immediately thanks to volume mounts.
+**Frontend**: Edit files in `./frontend/src/` - changes are reflected immediately thanks to volume mounts.
 
-**Backend**: Edit files in `./server/src/` - cargo-watch automatically detects changes and recompiles.
+**Backend**: Edit files in `./backend/src/` - cargo-watch automatically detects changes and recompiles.
 
 ### Updating
 

@@ -1,14 +1,14 @@
 services:
   frontend:
     build:
-      context: ./client
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: bergenbrettspill-frontend-dev
     ports:
       - "${FRONTEND_PORT:-3000}:80"
     volumes:
-      - ./client/src:/usr/share/nginx/html
-      - ./client/nginx.conf:/etc/nginx/templates/default.conf.template
+      - ./frontend/src:/usr/share/nginx/html
+      - ./frontend/nginx.conf:/etc/nginx/templates/default.conf.template
     environment:
       BACKEND_URL: ${BACKEND_URL:-http://backend:3000}
       VOTE_REDIRECT_URL: ${VOTE_REDIRECT_URL:-https://example.com}
@@ -20,11 +20,11 @@ services:
 
   backend:
     build:
-      context: ./server
+      context: ./backend
       dockerfile: Dockerfile.dev
     container_name: bergenbrettspill-backend-dev
     volumes:
-      - ./server:/app
+      - ./backend:/app
       - cargo-cache:/usr/local/cargo/registry
       - target-cache:/app/target
     environment:
