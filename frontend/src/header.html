@@ -5,6 +5,12 @@
 				<img class="logo" src="/img/logos/bbk/Bred.svg" alt="Bergen Brettspillklubb">
 			</h1>
 		</a>
+		<script type="module">
+			const now = new Date();
+			if (now.getMonth() === 5) {
+				document.querySelector(".logo-container .logo")?.src = "/img/logos/bbk/Bred pride.png";
+			}
+		</script>
 	</div>
 
 	<nav>
