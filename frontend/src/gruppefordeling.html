@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bergen Brettspillklubb</title>
+    <link href="/css/index.css" rel="stylesheet" />
+    <style>
+      figure {
+        margin: 0;
+      }
+
+      figure img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .token {
+        display: inline-block;
+        border-radius: 9999px;
+        width: 1em;
+        height: 1em;
+      }
+
+      .token-red {
+        background-color: red;
+      }
+
+      .token-white {
+        background-color: white;
+        border: 1px solid black;
+      }
+
+      .token-yellow {
+        background-color: yellow;
+        border: 1px solid grey;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!--#include file="header.html"-->
+
+      <main>
+        <article>
+          <h2>Hvordan deler vi oss i grupper?</h2>
+
+          <p>
+            Fra vi åpner kl. 17:30 og frem til kl. 18:00 kan medlemmer legge
+            spill på bordet. De kan velge spill fra
+            <a href="/spill.html">vår samling</a> eller ta med egne spill
+            hjemmefra.
+          </p>
+
+          <p>
+            Andre deltakere legger så stemmebrikker på spillene, for å vise at
+            de vil være med. <strong>Hver person har én stemmebrikke.</strong>
+          </p>
+
+          <p>
+            Frem til kl. 18:00 kan du flytte stemmebrikken din så mye du vil.
+            Kl. 18:00 har vi et opprop hvor vi ser hvilke spill som er
+            overfylte, og hvilke som har plass, og fordeler oss i grupper.
+          </p>
+
+          <p>
+            <strong
+              >Kommer du før kl. 18:00 gjør vi det vi kan for at du skal få bli
+              med på noe du har lyst til.</strong
+            >
+            Kommer du etter det garanterer vi ingenting.
+          </p>
+
+          <figure>
+            <img
+              src="/img/Spillbord.jpg"
+              alt="Eksempel på et bord med spillforslag"
+            />
+            <figcaption>Eksempel på et bord med spillforslag</figcaption>
+          </figure>
+
+          <section>
+            <h3><span class="token token-red"></span> Spilleder</h3>
+
+            <p>
+              Den som legger spillet på bordet legger en
+              <span class="token token-red" aria-hidden="true"></span> rød
+              stemmebrikke på spillet. Denne personen er ansvarlig for å sette
+              opp spillet og for å lære det bort til de andre spillerne. Rød
+              stemmebrikke garanterer plass på spillet.
+              <strong
+                >Max. 1
+                <span class="token token-red" aria-hidden="true"></span> rød
+                brikke pr. spill.</strong
+              >
+            </p>
+          </section>
+
+          <section>
+            <h3>
+              <span class="token token-white" aria-hidden="true"></span> Nytt
+              medlem
+            </h3>
+
+            <p>
+              De <strong>tre første</strong> gangene man er i klubben, har man
+              <span class="token token-white" aria-hidden="true"></span> hvit
+              stemmebrikke. Dette signaliserer til de andre som er med på
+              spillet at det er en person som er ny i klubben som er med på
+              spillet. <strong>Den garanterer også plass på spillet</strong>,
+              slik at nye spillere skal få spille det de ønsker.
+            </p>
+
+            <p>
+              Hvis man er medlem i klubben og har med en person som ikke er
+              medlem, får man også
+              <span class="token token-white" aria-hidden="true"></span> hvit
+              stemmebrikke. Dette for at man skal være garantert å få spille med
+              den man har med seg.
+            </p>
+          </section>
+
+          <section>
+            <h3>
+              <span class="token token-yellow" aria-hidden="true"></span>
+              Vanlige deltakere
+            </h3>
+            <p>
+              Hvis man ikke faller i noen av de andre kategoriene, har man
+              <span class="token token-yellow" aria-hidden="true"></span> gul
+              stemmebrikke. Denne signaliserer at man vil være med på spillet.
+              Hvis det er flere som ønsker å være med på et spill enn det er
+              plass til, må de med
+              <span class="token token-yellow" aria-hidden="true"></span> gul
+              stemmebrikke bli enige om hvem som må over på noe annet. Hvordan
+              dette bestemmes velger man selv. Tilfeldig trekning blir brukt om
+              man ikke klarer å bli enige.
+            </p>
+          </section>
+        </article>
+      </main>
+
+      <!--#include file="footer.html"-->
+    </div>
+  </body>
+</html>

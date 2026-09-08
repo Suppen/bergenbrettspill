@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: bergenbrettspill-frontend-dev
     ports:
-      - "${FRONTEND_PORT:-3000}:80"
+      - "127.0.0.1:${FRONTEND_PORT:-3000}:80"
     volumes:
       - ./frontend/src:/usr/share/nginx/html
       - ./frontend/nginx.conf:/etc/nginx/templates/default.conf.template
@@ -35,7 +35,7 @@ services:
       RUST_BACKTRACE: 1
     restart: unless-stopped
     ports:
-      - "${BACKEND_PORT:-3001}:3000"
+      - "127.0.0.1:${BACKEND_PORT:-3001}:3000"
     networks:
       - dev-network
     command: sh -c "cargo watch -x run"
